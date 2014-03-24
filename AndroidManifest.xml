@@ -31,7 +31,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.hyyft.noteeverything.planactivity.AddPlanActivity"
+            android:name="com.hyyft.noteeverything.plan.AddPlanActivity"
             android:label="@string/app_name" >
         </activity>
         <service

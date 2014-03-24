@@ -1,4 +1,4 @@
-package com.hyyft.noteeverything.planactivity;
+package com.hyyft.noteeverything.plan;
 
 
 import com.hyyft.noteeverything.R;

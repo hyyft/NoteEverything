@@ -1,13 +1,10 @@
 package com.hyyft.noteeverything.fragment;
 
-
-
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.adapter.DayPlanAdapter;
 import com.hyyft.noteeverything.global.NoteGlobal;
-import com.hyyft.noteeverything.planactivity.AddPlanActivity;
-import com.hyyft.noteeverything.planactivity.CalendarActivity;
-
+import com.hyyft.noteeverything.plan.AddPlanActivity;
+import com.hyyft.noteeverything.plan.CreateTimeDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -42,25 +39,21 @@ public class PlanFragment extends ListFragment {
 		
 		dateTextView = (TextView)mainView.findViewById(R.id.date_textview);
 		dateTextView.setOnClickListener(new OnClickListener() {
-			
+			//选择时间
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(), CalendarActivity.class);
-				startActivityForResult(intent, CALENDAR_REQUEST_CODE);
+				new CreateTimeDialog(getActivity()).getDate();
 			}
 		});
 	
 		addPlan_View();  //加载今日的计划
 		
-
 		//设置日期（显示今天的日期）
 		Time time = new Time();
 		time.setToNow();
 		dateTextView.setText(""+time.year+"-"+(time.month+1)+"-"+time.monthDay);
-		
-		
-		return mainView;
+    	return mainView;
 	}
 
 	
@@ -72,13 +65,6 @@ public class PlanFragment extends ListFragment {
 		// TODO Auto-generated method stub
 		//获取日期
 		switch (requestCode) {
-		case CALENDAR_REQUEST_CODE:
-			if( resultCode == CalendarActivity.CALENDAR_RESULT_CODE_OK ){
-				String date = data.getExtras().getString(CalendarActivity.CALENDAR_RESULT);
-				dateTextView.setText(date);
-			}
-			break;
-
 		case ADDPLAN_REQUEST_CODE:
 			if( resultCode == 1 ){
 				addPlan_View();  //重新加载计划
@@ -114,5 +100,4 @@ public class PlanFragment extends ListFragment {
 		}
 	};
 
-	
 }
