@@ -1,10 +1,18 @@
 package com.hyyft.noteeverything.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.adapter.DayPlanAdapter;
+import com.hyyft.noteeverything.dao.DayPlanDao;
+import com.hyyft.noteeverything.dao.PlanDbHelperContract.PlanTableInfo;
 import com.hyyft.noteeverything.global.NoteGlobal;
+import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.plan.AddPlanActivity;
 import com.hyyft.noteeverything.plan.CreateTimeDialog;
+import com.hyyft.noteeverything.plan.CreateTimeDialog.CreateTimeDialogCallBack;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -18,7 +26,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class PlanFragment extends ListFragment {
+public class PlanFragment extends ListFragment implements CreateTimeDialogCallBack{
 
 	public static final int CALENDAR_REQUEST_CODE = 1;
 	public static final int ADDPLAN_REQUEST_CODE = 2;
@@ -43,7 +51,7 @@ public class PlanFragment extends ListFragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new CreateTimeDialog(getActivity()).getDate();
+				new CreateTimeDialog( getActivity() , PlanFragment.this ).getDate();
 			}
 		});
 	
@@ -56,7 +64,6 @@ public class PlanFragment extends ListFragment {
     	return mainView;
 	}
 
-	
 	/**
 	 * 处理subActivity的返回值
 	 */
@@ -99,5 +106,29 @@ public class PlanFragment extends ListFragment {
 			startActivityForResult(intent, ADDPLAN_REQUEST_CODE);
 		}
 	};
+	
+	/**
+	 * 加载指定时间的计划
+	 */
+	@Override
+	public void dateDialogCallBack(String date) {
+		// TODO Auto-generated method stub
+		DayPlanAdapter adapter = new DayPlanAdapter(getActivity());		
+		DayPlanDao dbDao = new DayPlanDao(getActivity());
+		List<DayPlan> arraylist = new ArrayList<DayPlan>();
+		arraylist = dbDao.getAll(PlanTableInfo.PLAN_TABLE_NAME,
+				date );
+		for( int i=0 ; i<arraylist.size() ;i++  ){	
+			adapter.addList(arraylist.get(i));
+		}		
+		listView.setAdapter(adapter);
+		dateTextView.setText(date);
+	}
+
+	@Override
+	public void timeDialogCallBack() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

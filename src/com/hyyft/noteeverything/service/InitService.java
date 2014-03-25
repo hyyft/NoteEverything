@@ -25,6 +25,7 @@ import android.util.Log;
 public class InitService extends Service {
 
     private static final String TAG = "InitService";
+    
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
@@ -37,31 +38,6 @@ public class InitService extends Service {
 		
 		initDatabase();
 		initTag();
-		
-		
-		
-//		DayPlan dayPlan  = new DayPlan();
-//		dayPlan.setBigTag("运动");
-//		dayPlan.setOrder(1);
-//		dayPlan.setLitleTag("足球");
-//		dayPlan.setTitle("haoba");
-//		dayPlan.setContent("yexudfkdfj");
-//		dayPlan.setPlanBeginTime(System.currentTimeMillis());
-//		dayPlan.setDate(time.year+"-"+(time.month+1)+"-"+time.monthDay);
-//		dbDao.add(dayPlan);
-//		
-//		DayPlan dayPlan1  = new DayPlan();
-//		dayPlan1.setBigTag("运动");
-//		dayPlan1.setOrder(2);
-//		dayPlan1.setLitleTag("篮球");
-//		dayPlan1.setTitle("yy");
-//		dayPlan1.setContent("坏死的");
-//		dayPlan1.setPlanBeginTime(System.currentTimeMillis());
-//		dayPlan1.setDate("2014-2-27");
-//		dbDao.add(dayPlan1);
-//		Log.i(TAG ,"没有存入数据库"+dayPlan.getPlanBeginTime());
-			
-	
 		stopSelf();
 		
 	}
@@ -99,6 +75,10 @@ public class InitService extends Service {
 	
 	private void initDatabase(){
 		NoteGlobal noteGlobal = (NoteGlobal)getApplication();
+		//只有global对象第一次运行时才执行以下操作
+		if( !noteGlobal.globalFirstRun )return;
+		noteGlobal.globalFirstRun = false;
+		
 		DayPlanDao dbDao = new DayPlanDao(this);
 		Time time = new Time();
 		time.setToNow();
@@ -107,9 +87,8 @@ public class InitService extends Service {
 		arraylist = dbDao.getAll(PlanTableInfo.PLAN_TABLE_NAME,
 				time.year+"-"+(time.month+1)+"-"+time.monthDay );
 		
-		for( int i=0 ; i< arraylist.size() ; i++ ){
-			
-			
+		
+		for( int i=0 ; i< arraylist.size() ; i++ ){			
 			if( noteGlobal.maxPlanOrder<arraylist.get(i).getOrder() )
 				noteGlobal.maxPlanOrder = arraylist.get(i).getOrder();
 			if(noteGlobal.planList.isEmpty()){
@@ -125,10 +104,10 @@ public class InitService extends Service {
 			}
 		}
 		
-		for( int i=0 ; i<noteGlobal.planList.size() ; i++ ){
+//		for( int i=0 ; i<noteGlobal.planList.size() ; i++ ){
 //			Log.i(TAG ,"存入数据库"+noteGlobal.planList.get(i).getPlanBeginTime());
-			Log.i(TAG , noteGlobal.planList.get(i).toString());
-		}
+//			Log.i(TAG , noteGlobal.planList.get(i).toString());
+//		}
 	}
 
 }

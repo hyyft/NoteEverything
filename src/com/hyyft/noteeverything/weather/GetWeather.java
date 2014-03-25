@@ -54,10 +54,7 @@ public class GetWeather {
 			Log.e(TAG, "»ñÈ¡jsonÊ§°Ü");
 		}
 		analyDateJson();
-//		Log.i(TAG , weather[0].toString());
-//		Log.i(TAG , weather[1].toString());
-//		Log.i(TAG , weather[2].toString());
-//		Log.i(TAG , weather[3].toString());
+
 		return weather;
 	}
 	
@@ -116,6 +113,7 @@ public class GetWeather {
 				weather[i].setWeather(info.getString("weather"));
 				weather[i].setWind(info.getString("wind"));
 				weather[i].setIcon(getIcon(weather[i].getWeather()) );
+				Log.i("HomeFragment" , weather[i].getWeather());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -224,6 +222,7 @@ public class GetWeather {
 		else if( weather.equals("ö²") ){
 			id = "w_53_d";
 		}
+		else id = "w_no_d";
 		
 		return id;
 	}

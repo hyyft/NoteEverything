@@ -20,8 +20,10 @@ import android.widget.Toast;
 public class CreateTimeDialog {
 	
 	Context context;
-	public CreateTimeDialog(Context context){
+	CreateTimeDialogCallBack callBack;
+	public CreateTimeDialog(Context context , CreateTimeDialogCallBack callBack){
 		this.context = context;
+		this.callBack = callBack;
 	}
 
 	public static final int DATE_DIALOG = 1;
@@ -30,6 +32,9 @@ public class CreateTimeDialog {
 	
 	public void getDate(){
 		onCreateDialog(DATE_DIALOG).show();
+	}
+	public void getTime(){
+		onCreateDialog(TIME_DIALOG).show();
 	}
 	
 	private Dialog onCreateDialog(int id) { 
@@ -44,7 +49,7 @@ public class CreateTimeDialog {
                         @Override 
                         public void onDateSet(DatePicker datePicker,  
                                 int year, int month, int dayOfMonth) { 
-                        	
+                        	callBack.dateDialogCallBack(""+year+"-"+(month+1)+"-"+dayOfMonth);
                         	
                         } 
                     }; 
@@ -61,7 +66,7 @@ public class CreateTimeDialog {
                         @Override 
                         public void onTimeSet(TimePicker timerPicker, 
                                 int hourOfDay, int minute) { 
-                           
+                        	callBack.timeDialogCallBack();
                         	
                         } 
                     }; 
@@ -76,5 +81,9 @@ public class CreateTimeDialog {
         return dialog; 
     } 
 
+	public interface CreateTimeDialogCallBack{
+		public void dateDialogCallBack(String date);
+		public void timeDialogCallBack();
+	}
 
 }

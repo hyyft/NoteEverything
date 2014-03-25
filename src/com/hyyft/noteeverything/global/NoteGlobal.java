@@ -9,6 +9,7 @@ import android.app.Application;
 public class NoteGlobal extends Application {
 	public LinkedList<DayPlan> planList = new LinkedList<DayPlan>();
 	public int maxPlanOrder = 0;
+	public boolean globalFirstRun = true;
 
 	public void AddAPlan(DayPlan dayPlan) {
 		int j;

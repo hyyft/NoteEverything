@@ -2,6 +2,8 @@ package com.hyyft.noteeverything.plan;
 
 
 import com.hyyft.noteeverything.R;
+import com.hyyft.noteeverything.dao.DaoDbHelper;
+import com.hyyft.noteeverything.dao.DayPlanDao;
 import com.hyyft.noteeverything.global.NoteGlobal;
 import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.myconst.PrefConst;
@@ -25,6 +27,7 @@ public class AddPlanActivity extends Activity {
 	private NoteGlobal noteGlobal;
 	private String datesString;
 	private long mtime;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -61,6 +64,9 @@ public class AddPlanActivity extends Activity {
 				dayPlan.setRealTime(0);
 				dayPlan.setPlanTime(Integer.valueOf(planTimetTextView.getText().toString()));
 				noteGlobal.AddAPlan(dayPlan);
+				DayPlanDao dbDao = new DayPlanDao(AddPlanActivity.this);
+				dbDao.add(dayPlan);
+				 
 				setResult(1);
 			}
 			else if( v.getId() == R.id.add_btn_giveup ){
@@ -102,7 +108,7 @@ public class AddPlanActivity extends Activity {
 		Time time = new Time();
 		time.setToNow();
 		mtime = time.toMillis(true);
-		datesString = time.year+"-"+time.month+":"+time.monthDay;
+		datesString = time.year+"-"+(time.month+1)+"-"+time.monthDay;
 		dateTextView.setText(datesString);
 		timeTextView.setText(time.hour+":"+time.minute);
 		
