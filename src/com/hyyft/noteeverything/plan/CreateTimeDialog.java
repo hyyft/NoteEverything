@@ -66,7 +66,7 @@ public class CreateTimeDialog {
                         @Override 
                         public void onTimeSet(TimePicker timerPicker, 
                                 int hourOfDay, int minute) { 
-                        	callBack.timeDialogCallBack();
+                        	callBack.timeDialogCallBack(""+hourOfDay+":"+minute);
                         	
                         } 
                     }; 
@@ -83,7 +83,7 @@ public class CreateTimeDialog {
 
 	public interface CreateTimeDialogCallBack{
 		public void dateDialogCallBack(String date);
-		public void timeDialogCallBack();
+		public void timeDialogCallBack(String time);
 	}
 
 }

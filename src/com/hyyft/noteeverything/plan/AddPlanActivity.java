@@ -26,6 +26,7 @@ public class AddPlanActivity extends Activity {
 	private Button btn_save , btn_giveup;
 	private NoteGlobal noteGlobal;
 	private String datesString;
+	private PlanTextViewListener tvListener;
 	private long mtime;
 
 	@Override
@@ -39,8 +40,16 @@ public class AddPlanActivity extends Activity {
         setTag();
         btn_save.setOnClickListener(listener);
         btn_giveup.setOnClickListener(listener);
+        
+        tvListener = new PlanTextViewListener(this);
+        dateTextView.setOnClickListener(tvListener);
+        timeTextView.setOnClickListener(tvListener);
+        
 	}
 	
+	/**
+	 * 保存和取消按钮响应函数
+	 */
 	private OnClickListener listener = new OnClickListener() {
 		
 		@Override
@@ -58,12 +67,13 @@ public class AddPlanActivity extends Activity {
 				
 				dayPlan.setDate(dateTextView.getText().toString());
 				dayPlan.setIsFinish((short)0);
-				
+				mtime = new DateTransfrom().timeToLong(dayPlan.getDate(), timeTextView.getText().toString());
 				dayPlan.setPlanBeginTime(mtime);
 				dayPlan.setRealBeginTime(-1);
 				dayPlan.setRealTime(0);
 				dayPlan.setPlanTime(Integer.valueOf(planTimetTextView.getText().toString()));
-				noteGlobal.AddAPlan(dayPlan);
+				if( datesString.equals(dayPlan.getDate()) )
+					noteGlobal.AddAPlan(dayPlan);
 				DayPlanDao dbDao = new DayPlanDao(AddPlanActivity.this);
 				dbDao.add(dayPlan);
 				 

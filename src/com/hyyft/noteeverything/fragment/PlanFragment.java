@@ -126,7 +126,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	}
 
 	@Override
-	public void timeDialogCallBack() {
+	public void timeDialogCallBack(String time) {
 		// TODO Auto-generated method stub
 		
 	}
