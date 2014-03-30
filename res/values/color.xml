@@ -6,4 +6,6 @@
     <color name="dayplanfragment_time_color">#FFF7F7F6</color>
     <color name="dayplanfragment_order_color">#FF00FF33</color>
     <color name="dayplanfragment_time_backgroud_color">#FF565656</color>
+    
+    <color name="plam_TextView_Selected_backgroud_color">#EAEAEA</color>
 </resources>

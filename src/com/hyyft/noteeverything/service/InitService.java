@@ -54,17 +54,27 @@ public class InitService extends Service {
 			editor.putString(PrefConst.STUDY_TAG, "学习");
 			editor.putString(PrefConst.SPORT_TAG, "运动");
 			editor.putString(PrefConst.FUNNY_TAG, "娱乐");
-			editor.putString(PrefConst.TRIP_TAG, "旅游");
-			editor.putInt(PrefConst.BIGTAG_COUNT, 5);
+			editor.putInt(PrefConst.BIGTAG_COUNT, 4);
 			
 			editor.putString(PrefConst.DATELY_TAG+"-"+"1", "吃饭");
 			editor.putString(PrefConst.DATELY_TAG+"-"+"2", "睡觉");
 			
+			editor.putString(PrefConst.STUDY_TAG+"-"+"1", "专业学习");
+			editor.putString(PrefConst.STUDY_TAG+"-"+"2", "读好书");
+			
+			editor.putString(PrefConst.SPORT_TAG+"-"+"1", "篮球");
+			editor.putString(PrefConst.SPORT_TAG+"-"+"2", "足球");
+			editor.putString(PrefConst.SPORT_TAG+"-"+"3", "跑步");
+			
+			editor.putString(PrefConst.FUNNY_TAG+"-"+"1", "看电影");
+			editor.putString(PrefConst.FUNNY_TAG+"-"+"2", "听音乐");
+			
+			
 			editor.putInt(PrefConst.DATELY_COUNT, 2);
-			editor.putInt(PrefConst.STUDY_COUNT, 0);
-			editor.putInt(PrefConst.SPORT_COUNT, 0);
-			editor.putInt(PrefConst.FUNNY_COUNT, 0);
-			editor.putInt(PrefConst.TRIP_COUNT, 0);
+			editor.putInt(PrefConst.STUDY_COUNT, 2);
+			editor.putInt(PrefConst.SPORT_COUNT, 3);
+			editor.putInt(PrefConst.FUNNY_COUNT, 2);
+			
 			
 			editor.commit();
 			
