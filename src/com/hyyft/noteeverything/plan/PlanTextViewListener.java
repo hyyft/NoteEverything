@@ -3,6 +3,7 @@ package com.hyyft.noteeverything.plan;
 
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.plan.CreateTimeDialog.CreateTimeDialogCallBack;
+
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,9 +36,7 @@ CreateTimeDialogCallBack {
 
 		} else if (v.getId() == R.id.add_plantime_textview) {
 
-		} else if (v.getId() == R.id.add_tag_textview) {
-
-		}
+		} 
 	}
 	
 	private void onDateTextView(){
@@ -46,6 +45,9 @@ CreateTimeDialogCallBack {
 	private void onTimeTextView(){
 		new CreateTimeDialog(context, this).getTime();
 	}
+	
+	
+	
 	@Override
 	public void dateDialogCallBack(String date) {
 		// TODO Auto-generated method stub
@@ -58,5 +60,6 @@ CreateTimeDialogCallBack {
 		TextView tView = (TextView)view;
 		tView.setText(time);
 	}
+	
 
 }

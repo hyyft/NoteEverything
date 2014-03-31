@@ -10,6 +10,7 @@
         android:id="@+id/add_bigtag_fragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_margin="5dp"
         android:layout_weight="2" >
     </FrameLayout>
 
@@ -17,6 +18,7 @@
         android:id="@+id/add_littletag_fragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_margin="5dp"
         android:layout_weight="3" >
     </FrameLayout>
 

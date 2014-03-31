@@ -9,11 +9,8 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
 /**
@@ -21,7 +18,7 @@ import android.widget.TextView;
  * @author Administrator
  *
  */
-public class AddPlanBigTab extends ListFragment {
+public class AddPlanBigTag extends ListFragment {
 
 	private View view;
 	private ListView listView;
@@ -32,28 +29,15 @@ public class AddPlanBigTab extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		view = inflater.inflate(R.id.add_littletag_fragment, container);
-		listView = (ListView) view.findViewById(R.id.add_bigtag_list);
+		
+		view = inflater.inflate(R.layout.addplan_tagfragment_layout, container ,false);
+		listView = (ListView) view.findViewById(android.R.id.list);
 		showBigTag();
-		listView.setOnItemClickListener(listener);
 		return view;
 	}
 	
 	
 	
-	/**
-	 * item listener 获取bigTag
-	 */
-	private OnItemClickListener listener = new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			// TODO Auto-generated method stub
-			TextView textView = (TextView)view;
-			callBack.getBigTag(textView.getText().toString());
-		}
-	};
 	
 	/**
 	 * 获取sharedPreference的数据
@@ -62,9 +46,13 @@ public class AddPlanBigTab extends ListFragment {
 		int i = 1;
 		SharedPreferences sharedPreferences = 
 				getActivity().getSharedPreferences(PrefConst.NAME,Context.MODE_PRIVATE);
-		while( true ){
-			bigTag[i-1] = sharedPreferences.getString(""+i, "none");
-			if( bigTag[i-1].equals("none") )break;
+		int count = sharedPreferences.getInt(PrefConst.BIGTAG_COUNT, 0);
+		bigTag = new String[count];
+		String temp;
+		while( true && count!=0 ){
+			temp = sharedPreferences.getString(""+i, "none");
+			if( temp.equals("none") )break;
+			else bigTag[i-1] = temp;
 			i++;
 		}
 	}
@@ -84,7 +72,14 @@ public class AddPlanBigTab extends ListFragment {
 		this.callBack = callBack;
 	}
 	public interface PlanBigTagCallBack{
-		public void  getBigTag(String bigTag);
+		public void  getBigTag(String bigTag , String bigTagID);
 	}
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		callBack.getBigTag(l.getItemAtPosition(position).toString() , ""+(position+1));
+	}
+	
+	
 	
 }

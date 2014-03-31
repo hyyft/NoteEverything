@@ -2,13 +2,12 @@ package com.hyyft.noteeverything.plan;
 
 
 import com.hyyft.noteeverything.R;
-import com.hyyft.noteeverything.dao.DaoDbHelper;
 import com.hyyft.noteeverything.dao.DayPlanDao;
 import com.hyyft.noteeverything.global.NoteGlobal;
 import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.myconst.PrefConst;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -44,6 +43,14 @@ public class AddPlanActivity extends Activity {
         tvListener = new PlanTextViewListener(this);
         dateTextView.setOnClickListener(tvListener);
         timeTextView.setOnClickListener(tvListener);
+        tagTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				onTagTextView();
+			}
+		});
         
 	}
 	
@@ -123,5 +130,26 @@ public class AddPlanActivity extends Activity {
 		timeTextView.setText(time.hour+":"+time.minute);
 		
 	}
+	
+	private void onTagTextView(){
+		
+		Intent intent = new Intent(this , TagActivity.class);
+	    startActivityForResult(intent, 1);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		switch (requestCode) {
+		case 1:
+			if( resultCode == 1 )
+			tagTextView.setText(data.getStringExtra("bigtag")+"-"+data.getStringExtra("littletag"));
+			break;
+
+		default:
+			break;
+		}
+	}
+	
 	
 }

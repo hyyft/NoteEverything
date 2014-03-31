@@ -1,15 +1,11 @@
 package com.hyyft.noteeverything.fragment;
 
 import com.hyyft.noteeverything.R;
-import com.hyyft.noteeverything.R.layout;
 import com.hyyft.noteeverything.weather.Weather;
 import com.hyyft.noteeverything.weather.WeatherAsyncTast;
 import com.hyyft.noteeverything.weather.WeatherAsyncTast.GetWeatherTast;
-
-import android.util.Log;
 import android.view.View.OnClickListener;
 import android.content.res.Resources;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,16 +19,13 @@ import android.widget.Toast;
 public class HomeFragment extends Fragment { 
 
 
-	private static final String TAG = "HomeFragment";
 	private TextView addrTextView , temTextView , windTextView , weatherTextView;
 	private TextView updateTextView;
 	private ImageView iconImageView , ficonImageView;
 	private TextView fTem , fWeather;
-	private LayoutInflater inflater;
-	private View view , view2;
+	private View view , view2 , view3 , view4;
 	private Weather[] weathers;
 	private final int WEATHER_DAY = 4;
-	private boolean firstAdd = true;
 	
 	
 	@Override
@@ -42,6 +35,8 @@ public class HomeFragment extends Fragment {
 		weathers = new Weather[WEATHER_DAY];
 		WeatherAsyncTast wAsyncTast = new WeatherAsyncTast(getWeatherTast);
 		wAsyncTast.execute(new String[]{});
+		
+		
 	}
 
 	@Override
@@ -50,7 +45,13 @@ public class HomeFragment extends Fragment {
 		// TODO Auto-generated method stub
 		
 		view = inflater.inflate(R.layout.homefragment_layout, container, false);
-		this.inflater = inflater;
+		if(view2==null)
+			view2 = inflater.inflate(R.layout.weather_future, null);
+		if(view3==null)
+			view3 = inflater.inflate(R.layout.weather_future, null);
+		if(view4==null)
+			view4 = inflater.inflate(R.layout.weather_future, null);
+		
 		findView(view);
 		if( weathers[0] != null ){
 			getWeather();
@@ -103,7 +104,7 @@ public class HomeFragment extends Fragment {
 		iconImageView.setImageResource(indentify);
 	
 		//设置第二天天气
-		view2 = inflater.inflate(R.layout.weather_future, null);
+		
 		ficonImageView = (ImageView) view2.findViewById(R.id.w_ficon_tv);
 		fTem = (TextView) view2.findViewById(R.id.w_ftem_tv);
 		fWeather = (TextView) view2.findViewById(R.id.w_fweather_tv);
@@ -113,14 +114,15 @@ public class HomeFragment extends Fragment {
 		indentify = resources.getIdentifier(getActivity().getPackageName()+":drawable/"+weathers[1].getIcon(), null, null);
 		ficonImageView.setImageResource(indentify);
 		LinearLayout layout = (LinearLayout)view.findViewById(R.id.w_futrue1_container);
-		if( firstAdd )
-			layout.addView(view2);
+		layout.removeAllViews();
+		layout.addView(view2);
+		
 		
 		// 设置第三天天气
-		view2 = inflater.inflate(R.layout.weather_future, null);
-		ficonImageView = (ImageView) view2.findViewById(R.id.w_ficon_tv);
-		fTem = (TextView) view2.findViewById(R.id.w_ftem_tv);
-		fWeather = (TextView) view2.findViewById(R.id.w_fweather_tv);
+		
+		ficonImageView = (ImageView) view3.findViewById(R.id.w_ficon_tv);
+		fTem = (TextView) view3.findViewById(R.id.w_ftem_tv);
+		fWeather = (TextView) view3.findViewById(R.id.w_fweather_tv);
 
 		fTem.setText(weathers[2].getTemHight());
 		fWeather.setText(weathers[2].getWeather());
@@ -129,14 +131,14 @@ public class HomeFragment extends Fragment {
 		ficonImageView.setImageResource(indentify);
 		 layout = (LinearLayout) view
 				.findViewById(R.id.w_futrue2_container);
-		 if( firstAdd )
-				layout.addView(view2);
+		 layout.removeAllViews();
+		layout.addView(view3);
 		
 		// 设置第四天天气
-		view2 = inflater.inflate(R.layout.weather_future, null);
-		ficonImageView = (ImageView) view2.findViewById(R.id.w_ficon_tv);
-		fTem = (TextView) view2.findViewById(R.id.w_ftem_tv);
-		fWeather = (TextView) view2.findViewById(R.id.w_fweather_tv);
+		
+		ficonImageView = (ImageView) view4.findViewById(R.id.w_ficon_tv);
+		fTem = (TextView) view4.findViewById(R.id.w_ftem_tv);
+		fWeather = (TextView) view4.findViewById(R.id.w_fweather_tv);
 
 		fTem.setText(weathers[3].getTemHight());
 		fWeather.setText(weathers[3].getWeather());
@@ -145,10 +147,9 @@ public class HomeFragment extends Fragment {
 		ficonImageView.setImageResource(indentify);
 		 layout = (LinearLayout) view
 				.findViewById(R.id.w_futrue3_container);
-		 if( firstAdd )
-				layout.addView(view2);
+		layout.removeAllViews();
+		layout.addView(view4);
 		
-		if( firstAdd ) firstAdd = false;
 	}
 	
 	/**
