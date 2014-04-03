@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 public class TagActivity extends FragmentActivity{
 
@@ -49,14 +50,6 @@ public class TagActivity extends FragmentActivity{
 		});
 		
 		fTransaction = fManager.beginTransaction();	
-		
-//		/** Detaches the homeFragment if exists */
-//		if (bigTagFragment != null)
-//			fTransaction.detach(bigTagFragment);
-//
-//		/** Detaches the planFragment if exists */
-//		if (littleTagFragment != null)
-//			fTransaction.detach(littleTagFragment);
 		fTransaction.add(R.id.add_bigtag_fragment, bigTagFragment, "bigTagFragment");
 		fTransaction.add(R.id.add_littletag_fragment, littleTagFragment, "littleTagFragment");
 		
@@ -64,8 +57,5 @@ public class TagActivity extends FragmentActivity{
 		
 	
 	}
-	
-	
-	
 	
 }

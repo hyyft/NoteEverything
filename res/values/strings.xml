@@ -25,6 +25,10 @@
     <string name="text_addplan_btn_save">保存</string>
     <string name="text_addplan_btn_giveup">放弃</string>
     <string name="text_add_plantime_textview">60</string>
+    <string name="text_add_addbigtag_textview">增加大类</string>
+    <string name="text_add_addlittletag_textview">增加小类</string>
+    <string name="text_add_addtag_savebtn">确定</string>
+    <string name="text_add_addtag_nobtn">取消</string>
     
     <string name="w_text_weather">天气：</string>
     <string name="w_text_wind">风力：</string>

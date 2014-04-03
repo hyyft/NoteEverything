@@ -3,9 +3,12 @@ package com.hyyft.noteeverything.plan;
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.myconst.PrefConst;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +39,7 @@ public class AddPlanBigTag extends ListFragment {
 		return view;
 	}
 	
-	
-	
-	
+
 	/**
 	 * 获取sharedPreference的数据
 	 */
@@ -47,7 +48,7 @@ public class AddPlanBigTag extends ListFragment {
 		SharedPreferences sharedPreferences = 
 				getActivity().getSharedPreferences(PrefConst.NAME,Context.MODE_PRIVATE);
 		int count = sharedPreferences.getInt(PrefConst.BIGTAG_COUNT, 0);
-		bigTag = new String[count];
+		bigTag = new String[count+1];
 		String temp;
 		while( true && count!=0 ){
 			temp = sharedPreferences.getString(""+i, "none");
@@ -55,6 +56,7 @@ public class AddPlanBigTag extends ListFragment {
 			else bigTag[i-1] = temp;
 			i++;
 		}
+		bigTag[i-1] = "新增";
 	}
 	/**
 	 * 显示bigTag
@@ -77,8 +79,40 @@ public class AddPlanBigTag extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
-		callBack.getBigTag(l.getItemAtPosition(position).toString() , ""+(position+1));
+		if( l.getItemAtPosition(position).toString().equals("新增") ){
+			addBigTag();
+		}
+		else 
+			callBack.getBigTag(l.getItemAtPosition(position).toString() , ""+(position+1));
 	}
+	
+	/**
+	 * 新增大类
+	 */
+	private void addBigTag(){
+		Intent intent = new Intent(getActivity(), AddBigTagActiviity.class);		
+		startActivityForResult(intent, 10);	
+	}
+
+
+	/**
+	 * 获取addbigActivity的返回值
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		switch (requestCode) {
+		case 10:
+			if( resultCode == 1 )
+			showBigTag();
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	
 	
 	
 	

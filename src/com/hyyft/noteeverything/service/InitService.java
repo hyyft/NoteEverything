@@ -114,10 +114,6 @@ public class InitService extends Service {
 			}
 		}
 		
-//		for( int i=0 ; i<noteGlobal.planList.size() ; i++ ){
-//			Log.i(TAG ,"´æÈëÊý¾Ý¿â"+noteGlobal.planList.get(i).getPlanBeginTime());
-//			Log.i(TAG , noteGlobal.planList.get(i).toString());
-//		}
 	}
 
 }

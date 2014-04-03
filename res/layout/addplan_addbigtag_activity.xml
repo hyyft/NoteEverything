@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+    <TextView 
+        android:id="@+id/add_addtag_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:background="@color/plan_addbigtag_titlebg"
+        android:text="@string/text_add_addbigtag_textview"
+        />
+    
+   <EditText 
+        android:id="@+id/add_addtag_ed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textSize="20sp"
+        android:hint=""
+        />
+      <!-- 填充空间 -->
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+         >
+   </LinearLayout>     
+   
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        android:background="@drawable/plan_addtag_bar_bg">
+        
+        <Button
+            android:id="@+id/add_addtag_save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_gravity="right"
+            android:background="@drawable/plan_addtag_yes_btn_bg"/>
+        <Button
+            android:id="@+id/add_addtag_no_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_gravity="left"
+            android:background="@drawable/plan_addtag_no_btn_bg"/>
+     
+    </FrameLayout>
+</LinearLayout>

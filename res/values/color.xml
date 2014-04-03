@@ -8,4 +8,5 @@
     <color name="dayplanfragment_time_backgroud_color">#FF565656</color>
     
     <color name="plam_TextView_Selected_backgroud_color">#EAEAEA</color>
+    <color name="plan_addbigtag_titlebg">#00CC00</color>
 </resources>

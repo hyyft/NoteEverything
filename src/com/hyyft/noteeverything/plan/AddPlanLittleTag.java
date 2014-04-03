@@ -3,6 +3,7 @@ package com.hyyft.noteeverything.plan;
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.myconst.PrefConst;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -25,6 +26,7 @@ public class AddPlanLittleTag extends ListFragment {
 	private String[] littleTags;
 	private String littleTag = "none";
 	private String bigTag = "none";
+	private String bigTagID;
 	private AddPlanLittleTagCallBack callBack;
 	
 	@Override
@@ -62,11 +64,13 @@ public class AddPlanLittleTag extends ListFragment {
 			if( temp[i-1].equals("none") )break;			
 			i++;
 		}
-		littleTags = new String[i-1];
-		for(  int j = 0 ; j<i-1 ; j++){
+		littleTags = new String[i];
+		int j;
+		for(  j = 0 ; j<i-1 ; j++){
 			littleTags[j] = temp[j];
 			
 			}
+		littleTags[j] = "新增";
 		
 	}
 	/**
@@ -75,6 +79,7 @@ public class AddPlanLittleTag extends ListFragment {
 	 */
 	public void showLittleTag(String bigTag , String bigTagID){
 		this.bigTag = bigTag;
+		this.bigTagID = bigTagID;
 		getLittleTag(bigTagID);
 		listView.setAdapter(new ArrayAdapter<String>(
 				getActivity(), android.R.layout.simple_list_item_1, littleTags));
@@ -95,9 +100,37 @@ public class AddPlanLittleTag extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 
-		littleTag = (String)l.getItemAtPosition(position);
-		callBack.returnTag(bigTag, littleTag);
+		if( l.getItemAtPosition(position) .toString().equals("新增")){
+			addLittleTag();
+		}else{
+			littleTag = (String)l.getItemAtPosition(position);
+			callBack.returnTag(bigTag, littleTag);
+		}
+		
 	}
+	
+	
+	private void addLittleTag(){
+		Intent intent = new Intent(getActivity(), AddLittleTagActiviity.class);
+		intent.putExtra("bigtag", bigTagID);
+		startActivityForResult(intent, 11);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		switch (requestCode) {
+		case 11:
+			if( resultCode == 1 )
+			showLittleTag(bigTag, bigTagID);
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	
 	
 	
 	

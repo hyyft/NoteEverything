@@ -104,12 +104,6 @@ public class MainActivity extends FragmentActivity {
 		tabSpec = tabHost.newTabSpec("check").setIndicator(getView(getResources().getString(R.string.text_check)))
 				.setContent(new DummyTabContent(getBaseContext()));
 		tabHost.addTab(tabSpec);
-		
-//		tabSpec = tabHost.newTabSpec("set").setIndicator(getView(getResources().getString(R.string.text_set)))
-//				.setContent(new DummyTabContent(getBaseContext()));
-//		tabHost.addTab(tabSpec);
-		
-
 	}
 	
 	/**
@@ -126,8 +120,6 @@ public class MainActivity extends FragmentActivity {
 		return view;
 	}
 	
-	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
