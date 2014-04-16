@@ -8,6 +8,7 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />  
     <application
         android:name="com.hyyft.noteeverything.global.NoteGlobal"
         android:allowBackup="true"
@@ -46,11 +47,28 @@
             android:name="com.hyyft.noteeverything.plan.AddLittleTagActiviity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.plan.DialogActivity"
+            android:theme="@android:style/Theme.Dialog"
+            android:label="@string/app_name" >
+        </activity>
         <service
             android:name="com.hyyft.noteeverything.service.InitService"
             android:label="@string/app_name" >
         </service>
-    </application>
+        <service
+            android:name="com.hyyft.noteeverything.service.MainService"
+            android:label="@string/app_name" >
+        </service>
+        
+        <!-- 系统启动后自动自动一个服务 -->
+        <receiver android:name="com.hyyft.noteeverything.broadcastreceiver.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" >
+                </action>
+            </intent-filter>
+        </receiver>
+</application>
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"

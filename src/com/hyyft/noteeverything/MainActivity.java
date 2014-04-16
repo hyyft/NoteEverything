@@ -2,12 +2,14 @@ package com.hyyft.noteeverything;
 
 import com.hyyft.noteeverything.fragment.HomeFragment;
 import com.hyyft.noteeverything.fragment.PlanFragment;
-import com.hyyft.noteeverything.service.InitService;
+import com.hyyft.noteeverything.service.MainService;
+import com.hyyft.noteeverything.service.MainService.MainServiceBinder;
 
-import android.app.ActionBar;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,21 +26,59 @@ public class MainActivity extends FragmentActivity {
 	private TabHost tabHost;
 	private TabSpec tabSpec;
 	private LayoutInflater layoutInflater;
+	private MainService mainService;
+	
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Intent intent = new Intent(this, InitService.class);
-		startService(intent);
-		
 		tabHost = (TabHost)findViewById(android.R.id.tabhost);
 		tabHost.setup();
 		layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);		
 		tabHost.setOnTabChangedListener(listener);		
 		initTab();
 	}
+	
+	
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+		Intent intent = new Intent(this, MainService.class);
+		startService(intent);
+		bindService(intent, sConnection, BIND_AUTO_CREATE);
+		
+		//mainService.Log();
+	}
+	
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		unbindService(sConnection);
+	}
+
+
+    /**
+     * sConnection变量用于连接mainService
+     */
+	private ServiceConnection sConnection = new ServiceConnection() {
+		
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			// TODO Auto-generated method stub
+			mainService = ((MainServiceBinder)service).getService();
+			
+		}
+	};
 	
 	/**
 	 * 响应tab变化事件 
