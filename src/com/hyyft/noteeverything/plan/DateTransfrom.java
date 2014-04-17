@@ -13,7 +13,7 @@ public class DateTransfrom {
 				Integer.valueOf(t[1]),
 				Integer.valueOf(t[0]), 
 				Integer.valueOf(date[2]), 
-				Integer.valueOf(date[1]), 
+				Integer.valueOf(date[1])-1, 
 				Integer.valueOf(date[0]));
 		return time.toMillis(true);
 		

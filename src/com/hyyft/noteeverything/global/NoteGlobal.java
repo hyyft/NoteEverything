@@ -1,10 +1,12 @@
 package com.hyyft.noteeverything.global;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 
 import com.hyyft.noteeverything.modal.DayPlan;
 
 import android.app.Application;
+import android.util.Log;
 
 public class NoteGlobal extends Application {
 	public LinkedList<DayPlan> planList = new LinkedList<DayPlan>();
@@ -18,5 +20,17 @@ public class NoteGlobal extends Application {
 		planList.add( j, dayPlan );
 		maxPlanOrder++;
 
+	}
+	/**
+	 * 获取一个最靠近当前时间的未来任务
+	 * @return
+	 */
+	public DayPlan getNearPlan(  ){
+		long currentTime = System.currentTimeMillis();
+		for ( int j= 0; j < planList.size() ; j++ ){
+			if( currentTime <= planList.get(j).getPlanBeginTime() )
+				return planList.get(j);
+		}
+	     return null;
 	}
 }

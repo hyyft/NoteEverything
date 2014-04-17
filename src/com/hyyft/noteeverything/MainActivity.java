@@ -37,8 +37,10 @@ public class MainActivity extends FragmentActivity {
 		tabHost = (TabHost)findViewById(android.R.id.tabhost);
 		tabHost.setup();
 		layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);		
-		tabHost.setOnTabChangedListener(listener);		
+		tabHost.setOnTabChangedListener(listener);	
+		
 		initTab();
+		
 	}
 	
 	
@@ -76,7 +78,6 @@ public class MainActivity extends FragmentActivity {
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			// TODO Auto-generated method stub
 			mainService = ((MainServiceBinder)service).getService();
-			
 		}
 	};
 	
