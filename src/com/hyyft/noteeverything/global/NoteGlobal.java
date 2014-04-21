@@ -3,6 +3,8 @@ package com.hyyft.noteeverything.global;
 import java.util.Calendar;
 import java.util.LinkedList;
 
+import com.hyyft.noteeverything.dao.DaoDbHelper;
+import com.hyyft.noteeverything.dao.DayPlanDao;
 import com.hyyft.noteeverything.modal.DayPlan;
 
 import android.app.Application;
@@ -21,6 +23,13 @@ public class NoteGlobal extends Application {
 		maxPlanOrder++;
 
 	}
+    public void deletePlan(int index , String date){
+		
+		DayPlanDao  dao= new DayPlanDao(getApplicationContext());
+		dao.delete( planList.get(index).getOrder() , date);
+		planList.remove(index);
+		
+	}
 	/**
 	 * 获取一个最靠近当前时间的未来任务
 	 * @return
@@ -33,4 +42,7 @@ public class NoteGlobal extends Application {
 		}
 	     return null;
 	}
+	
+	
+	
 }

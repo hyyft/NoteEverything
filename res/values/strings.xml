@@ -14,7 +14,9 @@
     <string name="text_help">帮助</string>
     <string name="text_backup">备份</string>
     <string name="text_restore">还原</string>
-    <string name="btn_text_start_stop">开始</string>
+    <string name="btn_text_start">开始</string>
+    <string name="btn_text_stop">停止</string>
+     <string name="btn_text_continue">继续</string>
     <string name="btn_text_finish">完成</string>
     <string name="btn_text_give_up">放弃</string>
     <string name="btn_text_modify">修改</string>

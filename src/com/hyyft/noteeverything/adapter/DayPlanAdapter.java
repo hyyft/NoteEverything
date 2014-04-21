@@ -5,11 +5,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.hyyft.noteeverything.R;
@@ -19,10 +22,16 @@ public class DayPlanAdapter extends BaseAdapter {
 
 	private List<DayPlan> list = new ArrayList<DayPlan>();  
 	private Context context;
+	DayPlanAdapterCallBack callBack;
+	private Button startAndStopButton , endButton , deleteButton;
 	
-	public DayPlanAdapter(Context context){  
+	public DayPlanAdapter(Context context , DayPlanAdapterCallBack callBack){  
         this.context = context;  
+        this.callBack = callBack;
     } 
+	
+	
+	
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -52,6 +61,24 @@ public class DayPlanAdapter extends BaseAdapter {
 		contentTextView = (TextView)convertView.findViewById(R.id.dayplanfragment_item_content);
 		titleTextView = (TextView)convertView.findViewById(R.id.dayplanfragment_item_title);
 		
+		
+		startAndStopButton = (Button) convertView.findViewById(R.id.btn_plan_start_stop);
+		startAndStopButton.setTag(position);
+		endButton = (Button)convertView.findViewById(R.id.btn_plan_finish);
+		endButton.setTag(position);
+		deleteButton = ( Button )convertView.findViewById(R.id.btn_plan_give_up);
+		deleteButton.setTag(position);
+		startAndStopButton.setOnClickListener(listViewListener);
+		endButton.setOnClickListener(listViewListener);
+		deleteButton.setOnClickListener(listViewListener);
+		if( list.get(position).getIsFinish() == 1 ){
+			startAndStopButton.setEnabled(false);
+			deleteButton.setEnabled(false);
+			endButton.setEnabled(false); 
+			}
+		else  if( list.get(position).getIsFinish() == 0 && list.get(position).getRealTime()!=0 )
+			startAndStopButton.setEnabled(false);
+		
 		final Calendar mCalendar=Calendar.getInstance();
 		mCalendar.setTimeInMillis(list.get(position).getPlanBeginTime());
 		
@@ -65,5 +92,52 @@ public class DayPlanAdapter extends BaseAdapter {
 	public void addList(DayPlan dayPlan){  
         list.add(dayPlan);  
     } 
+	
+	
+     private OnClickListener listViewListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View view) {
+			// TODO Auto-generated method stub
+
+			// TODO Auto-generated method stub
+			//int position = listView.getSelectedItemPosition();
+			int position = (Integer)view.getTag();
+			Button button = (Button)view;
+			Resources resources = context.getResources();
+			
+			if( view.getId() == R.id.btn_plan_start_stop ){
+				if( button.getText().toString().equals(resources.getString(R.string.btn_text_start)) ){
+					//button.setText(resources.getString(R.string.btn_text_stop));
+					button.setEnabled(false);
+					callBack.PressBtnStart(position);
+				}
+//				else if( button.getText().toString().equals(resources.getString(R.string.btn_text_stop)) ){
+//					button.setText(resources.getString(R.string.btn_text_continue));
+//					callBack.PressBtnStop(position);
+//				}
+//				else if( button.getText().toString().equals(resources.getString(R.string.btn_text_continue)) ){
+//					button.setText(resources.getString(R.string.btn_text_stop));
+//					callBack.PressBtnStart(position);
+//				}
+				
+			}
+			else if( view.getId() == R.id.btn_plan_finish ){
+				
+				button.setEnabled(false);
+				callBack.PressBtnEnd(position , startAndStopButton , deleteButton);			
+			}else if( view.getId() == R.id.btn_plan_give_up ) {
+				callBack.PressBtnDel(position);
+
+			}
+      }
+	};
+	
+	public interface DayPlanAdapterCallBack{
+		public void PressBtnStart(int position);
+		public void PressBtnEnd(int position ,Button startAndStopButton , Button deleteButton);
+		public void PressBtnStop(int position );
+		public void PressBtnDel(int position);
+	}
 
 }

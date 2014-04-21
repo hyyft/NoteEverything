@@ -10,6 +10,7 @@
     android:paddingRight="50dp"
     android:paddingTop="3dp" >
 
+
     <!-- 填充顶部 -->
 
     <LinearLayout
@@ -50,13 +51,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:gravity="center"
             android:background="@drawable/plan_order_high"
+            android:gravity="center"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textColor="@color/dayplanfragment_order_color"
             android:textSize="15sp" />
-             
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,11 +71,12 @@
                 android:singleLine="true"
                 android:textColor="#000000"
                 android:textSize="20sp" />
-			<EditText 
-			    android:layout_width="match_parent"
+
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#000000"
-			    />
+                android:background="#000000" />
+
             <TextView
                 android:id="@+id/dayplanfragment_item_content"
                 android:layout_width="wrap_content"
@@ -83,29 +85,29 @@
         </LinearLayout>
     </LinearLayout>
 
-	<LinearLayout
-	     android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="horizontal"
-         android:gravity="center"
-	    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
 
-	    <Button
-	        android:id="@+id/btn_plan_start_stop"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/btn_text_start_stop" />
+        <Button
+            android:id="@+id/btn_plan_start_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_text_start" />
 
-	    <Button
-	        android:id="@+id/btn_plan_finish"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/btn_text_finish" />
-	    <Button
-	        android:id="@+id/btn_plan_give_up"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/btn_text_give_up" />
-	</LinearLayout>
+        <Button
+            android:id="@+id/btn_plan_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_text_finish" />
+
+        <Button
+            android:id="@+id/btn_plan_give_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_text_give_up" />
+    </LinearLayout>
 
 </LinearLayout>

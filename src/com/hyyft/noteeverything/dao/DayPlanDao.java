@@ -110,12 +110,12 @@ public class DayPlanDao {
 	 * @param index
 	 * @param date
 	 */
-	public void update(ContentValues values , int id , String date){
+	public void update(ContentValues values , int order , String date){
 		db = mDbHelper.getWritableDatabase();
 		db.update(PlanTableInfo.PLAN_TABLE_NAME, values,
-				PlanTableInfo.COLUMN_NAME_ID+"=? and "
+				PlanTableInfo.COLUMN_NAME_ORDER+"=? and "
 						+PlanTableInfo.COLUMN_NAME_DATE+"=?", 
-				new String[]{ String.valueOf(id) , date });
+				new String[]{ String.valueOf(order) , date });
 		db.close();
 	}
 }
