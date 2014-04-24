@@ -15,8 +15,7 @@ public class DoFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		
-		return inflater.inflate(R.layout.fragment2_layout, container, false);
+		return inflater.inflate(R.layout.dofragment_layout, container, false);
 	}
-
 	
 }

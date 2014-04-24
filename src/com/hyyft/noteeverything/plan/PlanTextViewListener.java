@@ -35,7 +35,7 @@ CreateTimeDialogCallBack {
 			onTimeTextView();
 
 		} else if (v.getId() == R.id.add_plantime_textview) {
-
+			onPlanTimeTextView();
 		} 
 	}
 	
@@ -44,6 +44,9 @@ CreateTimeDialogCallBack {
 	}
 	private void onTimeTextView(){
 		new CreateTimeDialog(context, this).getTime();
+	}
+	private void onPlanTimeTextView(){
+		new CreateTimeDialog(context, this).getPlanTime();
 	}
 	
 	
@@ -59,6 +62,12 @@ CreateTimeDialogCallBack {
 		// TODO Auto-generated method stub
 		TextView tView = (TextView)view;
 		tView.setText(time);
+	}
+	@Override
+	public void ptimeDialogCallBack(int hour , int minute) {
+		// TODO Auto-generated method stub
+		TextView tView = (TextView)view;
+		tView.setText( ""+(hour*60 + minute ) );
 	}
 	
 

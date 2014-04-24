@@ -28,6 +28,7 @@ public class CreateTimeDialog {
 
 	public static final int DATE_DIALOG = 1;
 	public static final int TIME_DIALOG = 2;
+	public static final int PLANTIME_DIALOG = 3;
 	protected static final String TAG = "CreateTimeDialog";
 	
 	public void getDate(){
@@ -35,6 +36,9 @@ public class CreateTimeDialog {
 	}
 	public void getTime(){
 		onCreateDialog(TIME_DIALOG).show();
+	}
+	public void getPlanTime(  ){
+		onCreateDialog(PLANTIME_DIALOG).show();
 	}
 	
 	private Dialog onCreateDialog(int id) { 
@@ -75,6 +79,22 @@ public class CreateTimeDialog {
                             calendar.get(Calendar.MINUTE), 
                             true);   //是否为二十四制 
                 break; 
+            case PLANTIME_DIALOG:
+            	TimePickerDialog.OnTimeSetListener ptimeListener =  
+                new TimePickerDialog.OnTimeSetListener() { 
+                     
+                    @Override 
+                    public void onTimeSet(TimePicker timerPicker, 
+                            int hourOfDay, int minute) { 
+                    	callBack.ptimeDialogCallBack(hourOfDay , minute);
+                    	
+                    } 
+                }; 
+                dialog = new TimePickerDialog(context , ptimeListener, 
+                        0, 
+                        0, 
+                        true);   //是否为二十四制 
+            break; 
             default: 
                 break; 
         } 
@@ -84,6 +104,7 @@ public class CreateTimeDialog {
 	public interface CreateTimeDialogCallBack{
 		public void dateDialogCallBack(String date);
 		public void timeDialogCallBack(String time);
+		public void ptimeDialogCallBack(int hour , int minute);
 	}
 
 }

@@ -43,6 +43,7 @@ public class AddPlanActivity extends Activity {
         tvListener = new PlanTextViewListener(this);
         dateTextView.setOnClickListener(tvListener);
         timeTextView.setOnClickListener(tvListener);
+        planTimetTextView.setOnClickListener(tvListener);
         tagTextView.setOnClickListener(new OnClickListener() {
 			
 			@Override

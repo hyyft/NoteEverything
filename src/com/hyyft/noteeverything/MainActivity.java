@@ -1,7 +1,9 @@
 package com.hyyft.noteeverything;
 
+import com.hyyft.noteeverything.fragment.DoFragment;
 import com.hyyft.noteeverything.fragment.HomeFragment;
 import com.hyyft.noteeverything.fragment.PlanFragment;
+import com.hyyft.noteeverything.fragment.CheckFragment;
 import com.hyyft.noteeverything.service.MainService;
 import com.hyyft.noteeverything.service.MainService.MainServiceBinder;
 
@@ -92,6 +94,8 @@ public class MainActivity extends FragmentActivity {
 			FragmentManager fManager = getSupportFragmentManager();
 			HomeFragment homeFragment = (HomeFragment)fManager.findFragmentByTag("home");
 			PlanFragment planFragment = (PlanFragment)fManager.findFragmentByTag("plan");
+			DoFragment doFragment = (DoFragment)fManager.findFragmentByTag("do");
+			CheckFragment checkFragment = (CheckFragment)fManager.findFragmentByTag("check");
 			FragmentTransaction fTransaction = fManager.beginTransaction();
 			
 			
@@ -102,6 +106,13 @@ public class MainActivity extends FragmentActivity {
 			/** Detaches the planFragment if exists */
 			if (planFragment != null)
 				fTransaction.detach(planFragment);
+			
+			if (doFragment != null)
+				fTransaction.detach(doFragment);
+
+			
+			if (checkFragment != null)
+				fTransaction.detach(checkFragment);
 			
 			
 			if (tabId.equalsIgnoreCase("home")) {
@@ -118,6 +129,22 @@ public class MainActivity extends FragmentActivity {
 							"plan");
 				} else {
 					fTransaction.attach(planFragment);
+				}
+			}
+			else if( tabId.equalsIgnoreCase("do") ){
+				if (doFragment == null) {
+					fTransaction.add(android.R.id.tabcontent, new DoFragment(),
+							"do");
+				} else {
+					fTransaction.attach(doFragment);
+				}
+			}
+			else if( tabId.equalsIgnoreCase("check") ){
+				if (checkFragment == null) {
+					fTransaction.add(android.R.id.tabcontent, new CheckFragment(),
+							"check");
+				} else {
+					fTransaction.attach(checkFragment);
 				}
 			}
 			fTransaction.commit();

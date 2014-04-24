@@ -38,7 +38,7 @@
     <string name="w_content_text">\t世事忙忙如水流，休将名利挂心头。粗茶淡饭随缘过，富贵荣华莫强求。</string>
     <string name="w_text_update">更新天气</string>
     
-    
+    <string name="do_btn_additem">添加条目</string>
        
 
 </resources>
