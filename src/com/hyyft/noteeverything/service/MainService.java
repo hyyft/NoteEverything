@@ -140,6 +140,7 @@ public class MainService extends Service {
 		List<DayPlan> arraylist = new ArrayList<DayPlan>();
 		arraylist = dbDao.getAll(PlanTableInfo.PLAN_TABLE_NAME,
 				time.year+"-"+(time.month+1)+"-"+time.monthDay );
+		noteGlobal.getDoWhat(time.year+"-"+(time.month+1)+"-"+time.monthDay);
 		
 		
 		for( int i=0 ; i< arraylist.size() ; i++ ){	

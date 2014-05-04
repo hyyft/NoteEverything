@@ -44,7 +44,7 @@ public class PlanDbHelperContract{
         public static final String COLUMN_NAME_LITTLETAG = "littletag";
           
         public static final String COLUMN_NAME_BEGINTIME = "begintime";
-        public static final String COLUMN_NAME_REALTIME = "realtime";
+        //public static final String COLUMN_NAME_REALTIME = "realtime";
             
         public static final String COLUMN_NAME_DATE = "date";
 

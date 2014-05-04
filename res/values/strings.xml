@@ -39,6 +39,7 @@
     <string name="w_text_update">更新天气</string>
     
     <string name="do_btn_additem">添加条目</string>
+    <string name="do_iv_desc"></string>
        
 
 </resources>

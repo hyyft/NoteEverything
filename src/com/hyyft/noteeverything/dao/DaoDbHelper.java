@@ -69,7 +69,7 @@ public class DaoDbHelper extends SQLiteOpenHelper{
 				DoWhatTableInfo.COLUMN_NAME_BIGTAG+" TEXT ,"+
 				DoWhatTableInfo.COLUMN_NAME_LITTLETAG+" TEXT ,"+
 				DoWhatTableInfo.COLUMN_NAME_BEGINTIME+" INTEGER,"+
-				DoWhatTableInfo.COLUMN_NAME_REALTIME+" INTEGER,"+
+				//DoWhatTableInfo.COLUMN_NAME_REALTIME+" INTEGER,"+
 				DoWhatTableInfo.COLUMN_NAME_DATE+" TEXT);";
 	Log.i(TAG , sql);
 	db.execSQL(sql);
