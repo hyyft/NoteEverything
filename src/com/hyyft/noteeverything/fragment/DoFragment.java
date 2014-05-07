@@ -3,23 +3,29 @@ package com.hyyft.noteeverything.fragment;
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.adapter.DoItemAdapter;
 import com.hyyft.noteeverything.adapter.DoItemAdapter.DoItemAdapterCallBack;
+import com.hyyft.noteeverything.dowhat.AddDoItem_Activity;
 import com.hyyft.noteeverything.global.NoteGlobal;
-import com.hyyft.noteeverything.modal.DoWhat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * dowhat 的fragment 类
+ * @author Administrator
+ *
+ */
 public class DoFragment extends Fragment implements DoItemAdapterCallBack{
 
-	private static final String TAG = "DoFragment";
+	//private static final String TAG = "DoFragment";
 	private TextView dateTextView;
 	private NoteGlobal noteGlobal;
 	private ListView listView;
@@ -33,11 +39,15 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack{
 		listView = (ListView)fragmentView.findViewById(android.R.id.list);
 		dateTextView = (TextView)fragmentView.findViewById(R.id.do_tv_date);
 		addButton = (Button )fragmentView.findViewById(R.id.do_btn_additem);
+		addButton.setOnClickListener(listener);
 		
 		setView();
 		return fragmentView;
 	}
 	
+	/**
+	 * 设置fragment的界面
+	 */
 	private void setView(){
 		DoItemAdapter adapter = new DoItemAdapter(getActivity(), this);
 		noteGlobal = (NoteGlobal)getActivity().getApplication();
@@ -46,26 +56,25 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack{
 		String dateStr = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
 		dateTextView.setText(dateStr);
 		
-		
-		DoWhat doWhat = new DoWhat();
-		doWhat.setBeginTime(time.toMillis(false));
-		doWhat.setBigTag("日常");
-		doWhat.setLitleTag("吃饭");
-		doWhat.setContent("去吃中午饭，然后逛了逛");
-		doWhat.setDate(dateStr);
-
-		//noteGlobal.AddDoItem(doWhat);
-		  //noteGlobal.AddDoItem(doWhat);
-		 //noteGlobal.DelDoItem(0, dateStr);
 		for( int i=0 ; i<noteGlobal.doList.size() ;i++  ){
 			
 			adapter.addList(noteGlobal.doList.get(i));
-			Log.i(TAG , noteGlobal.doList.get(i).toString());
 		}		
 		listView.setAdapter(adapter);
 	}
 	
-	
+	/**
+	 * 添加条目的listener
+	 */
+	private OnClickListener listener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			
+			startActivity(new Intent(getActivity() , AddDoItem_Activity.class));
+		}
+	};
 	
 
 }

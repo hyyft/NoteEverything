@@ -211,6 +211,14 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 
 
 
+	@Override
+	public void timeDialogCallBack(int hour, int minute) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	
 
 }

@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.hyyft.noteeverything.R;
@@ -62,8 +61,9 @@ public class DoItemAdapter extends BaseAdapter {
 
 		final Calendar mCalendar=Calendar.getInstance();
 		mCalendar.setTimeInMillis(list.get(position).getBeginTime());
+		
 		String timeString = list.get(position).getDate()+"  "+
-				mCalendar.get(Calendar.HOUR_OF_DAY)+
+				mCalendar.get(Calendar.HOUR_OF_DAY)+":"+
 				mCalendar.get(Calendar.MINUTE);
 		timeTextView.setText(timeString);
 		tagTextView.setText(list.get(position).getBigTag()+"-"+list.get(position).getLitleTag());

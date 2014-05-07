@@ -52,6 +52,14 @@
             android:theme="@android:style/Theme.Dialog"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.dowhat.AddDoItem_Activity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.dowhat.TagActivity"
+            android:label="@string/app_name" >
+        </activity>
         <service
             android:name="com.hyyft.noteeverything.service.InitService"
             android:label="@string/app_name" >

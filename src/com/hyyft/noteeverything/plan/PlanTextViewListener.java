@@ -69,6 +69,11 @@ CreateTimeDialogCallBack {
 		TextView tView = (TextView)view;
 		tView.setText( ""+(hour*60 + minute ) );
 	}
+	@Override
+	public void timeDialogCallBack(int hour, int minute) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

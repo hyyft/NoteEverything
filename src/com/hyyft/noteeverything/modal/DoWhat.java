@@ -19,6 +19,7 @@ public class DoWhat {
 	private String littleTag;
 
 	private long beginTime;
+	//private long endTime;
     private String date;
 	
 	
@@ -66,6 +67,13 @@ public class DoWhat {
 	public long getBeginTime(){
 		return this.beginTime;
 	}
+	
+//	public  void setEndTime(long endTime){
+//		this.endTime = endTime;
+//	}
+//	public long getEndTime(){
+//		return this.endTime;
+//	}
 	
 	public  void setDate(String date){
 		this.date = date;

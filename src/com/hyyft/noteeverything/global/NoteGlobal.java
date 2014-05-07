@@ -1,10 +1,8 @@
 package com.hyyft.noteeverything.global;
 
-import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.hyyft.noteeverything.dao.DaoDbHelper;
 import com.hyyft.noteeverything.dao.DayPlanDao;
 import com.hyyft.noteeverything.dao.DoWhatDao;
 import com.hyyft.noteeverything.dao.PlanDbHelperContract.DoWhatTableInfo;
@@ -13,7 +11,6 @@ import com.hyyft.noteeverything.modal.DoWhat;
 
 import android.app.Application;
 import android.content.ContentValues;
-import android.util.Log;
 
 public class NoteGlobal extends Application {
 	public LinkedList<DayPlan> planList = new LinkedList<DayPlan>();

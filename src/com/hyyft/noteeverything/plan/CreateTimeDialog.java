@@ -30,6 +30,7 @@ public class CreateTimeDialog {
 	public static final int TIME_DIALOG = 2;
 	public static final int PLANTIME_DIALOG = 3;
 	protected static final String TAG = "CreateTimeDialog";
+	private int tag = 0;
 	
 	public void getDate(){
 		onCreateDialog(DATE_DIALOG).show();
@@ -39,6 +40,11 @@ public class CreateTimeDialog {
 	}
 	public void getPlanTime(  ){
 		onCreateDialog(PLANTIME_DIALOG).show();
+	}
+	
+	public void getTime1(){
+		onCreateDialog(TIME_DIALOG).show();
+		tag = 1;
 	}
 	
 	private Dialog onCreateDialog(int id) { 
@@ -53,6 +59,7 @@ public class CreateTimeDialog {
                         @Override 
                         public void onDateSet(DatePicker datePicker,  
                                 int year, int month, int dayOfMonth) { 
+                        	
                         	callBack.dateDialogCallBack(""+year+"-"+(month+1)+"-"+dayOfMonth);
                         	
                         } 
@@ -70,8 +77,8 @@ public class CreateTimeDialog {
                         @Override 
                         public void onTimeSet(TimePicker timerPicker, 
                                 int hourOfDay, int minute) { 
-                        	callBack.timeDialogCallBack(""+hourOfDay+":"+minute);
-                        	
+                        	if(tag == 0)callBack.timeDialogCallBack(""+hourOfDay+":"+minute);
+                        	else callBack.timeDialogCallBack(hourOfDay, minute);
                         } 
                     }; 
                     dialog = new TimePickerDialog(context , timeListener, 
@@ -104,6 +111,7 @@ public class CreateTimeDialog {
 	public interface CreateTimeDialogCallBack{
 		public void dateDialogCallBack(String date);
 		public void timeDialogCallBack(String time);
+		public void timeDialogCallBack(int hour , int minute);
 		public void ptimeDialogCallBack(int hour , int minute);
 	}
 
