@@ -52,6 +52,7 @@ public class NoteGlobal extends Application {
 		DoWhatDao  dao= new DoWhatDao(getApplicationContext());
 	    List<DoWhat>list =  dao.getAll(DoWhatTableInfo.TABLE_NAME, date);
 	    int i;
+	    if(!doList.isEmpty())doList.removeAll(doList);
 	    for(  i=0 ; i < list.size() ; i++){
 	    	doList.add(list.get(i));
 	    }

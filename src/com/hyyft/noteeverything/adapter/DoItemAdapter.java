@@ -73,6 +73,9 @@ public class DoItemAdapter extends BaseAdapter {
 	public void addList(DoWhat doWhat){  
         list.add(doWhat);  
     } 
+	public void deleteAllList(){  
+        list.removeAll(list);
+    } 
 	
 
 	public interface DoItemAdapterCallBack{
