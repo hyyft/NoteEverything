@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="#CCCCCC"
+    android:orientation="vertical">
+
+    <!-- doitem 开始的时间 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        >
+        <TextView 
+            android:id="@+id/do_tv_begintime_title"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:textSize="20sp"
+        	android:text="@string/do_tv_begintime_desc"
+            />
+        <TextView 
+            android:id="@+id/do_tv_begin_time"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_marginLeft="10dp"
+        	android:gravity="center"
+        	android:background="@drawable/textview_bg"
+        	android:textSize="20sp"
+            /> 
+    </LinearLayout>
+    
+    <!-- doitem 结束的时间 -->
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        >
+        
+        <TextView 
+            android:id="@+id/do_tv_endtime_title"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:textSize="20sp"
+        	android:text="@string/do_tv_endtime_desc"
+            />
+       
+        <TextView 
+            android:id="@+id/do_tv_end_time"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:gravity="center"
+        	android:layout_marginLeft="10dp"
+        	android:background="@drawable/textview_bg"
+        	android:textSize="20sp"
+            />      
+    </LinearLayout>
+    --> 
+
+    <!-- do的内容 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" 
+        android:gravity="left|top"
+        >
+
+        <TextView
+            android:id="@+id/do_tv_content_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:text="@string/do_tv_content_desc"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/do_et_content"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:textSize="20sp" 
+            android:hint=""/>
+    </LinearLayout>
+    
+  
+    <!-- do tag -->
+    <TextView 
+            android:id="@+id/do_tv_tag"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:background="@drawable/textview_bg"
+        	android:layout_marginTop="20dp"
+        	android:layout_marginRight="20dp"
+        	android:layout_marginLeft="20dp"
+        	android:textSize="25sp"
+            />
+    <!-- 按钮布局 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" 
+        >
+
+        <Button
+            android:id="@+id/do_btn_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/do_btn_save"
+            style="@android:attr/buttonStyle"
+            android:textSize="25sp"
+             />
+
+        <Button
+            android:id="@+id/do_btn_giveup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/do_btn_giveup"
+            style="@android:attr/buttonStyle"
+            android:textSize="25sp" />
+    </LinearLayout>
+    
+
+</LinearLayout>
