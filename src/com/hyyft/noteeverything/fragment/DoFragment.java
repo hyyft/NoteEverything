@@ -6,6 +6,8 @@ import com.hyyft.noteeverything.adapter.DoItemAdapter.DoItemAdapterCallBack;
 import com.hyyft.noteeverything.dowhat.AddDoItem_Activity;
 import com.hyyft.noteeverything.dowhat.ModifyDoItem_Activity;
 import com.hyyft.noteeverything.global.NoteGlobal;
+import com.hyyft.noteeverything.plan.CreateTimeDialog;
+import com.hyyft.noteeverything.plan.CreateTimeDialog.CreateTimeDialogCallBack;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +34,7 @@ import android.widget.Toast;
  * @author Administrator
  *
  */
-public class DoFragment extends Fragment implements DoItemAdapterCallBack{
+public class DoFragment extends Fragment implements DoItemAdapterCallBack , CreateTimeDialogCallBack{
 
 	//private static final String TAG = "DoFragment";
 	private TextView dateTextView;
@@ -53,6 +55,18 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack{
 		addButton = (Button )fragmentView.findViewById(R.id.do_btn_additem);
 		addButton.setOnClickListener(listener);
 		
+		Time time = new Time();
+		time.setToNow();
+		String dateStr = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+		dateTextView.setText(dateStr);
+		dateTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new CreateTimeDialog(getActivity(), DoFragment.this).getDate();
+			}
+		});
 		
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -76,10 +90,8 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack{
 	private void setView(){
 		DoItemAdapter adapter = new DoItemAdapter(getActivity(), this);
 		noteGlobal = (NoteGlobal)getActivity().getApplication();
-		Time time = new Time();
-		time.setToNow();
-		String dateStr = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
-		dateTextView.setText(dateStr);
+		noteGlobal.getDoWhat(dateTextView.getText().toString());
+		
 		
 		for( int i=0 ; i<noteGlobal.doList.size() ;i++  ){
 			
@@ -161,6 +173,32 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack{
 			menu.add(0, ID_DELETE, 1, "É¾³ý");
 		}
 	};
+	
+	
+	@Override
+	public void dateDialogCallBack(String date) {
+		// TODO Auto-generated method stub
+		dateTextView.setText(date);
+		setView();
+	}
+
+	@Override
+	public void timeDialogCallBack(String time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void timeDialogCallBack(int hour, int minute) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ptimeDialogCallBack(int hour, int minute) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }
