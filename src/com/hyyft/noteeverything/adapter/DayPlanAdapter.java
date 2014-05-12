@@ -71,12 +71,23 @@ public class DayPlanAdapter extends BaseAdapter {
 		startAndStopButton.setOnClickListener(listViewListener);
 		endButton.setOnClickListener(listViewListener);
 		deleteButton.setOnClickListener(listViewListener);
-		if( list.get(position).getIsFinish() == 1 ){
+		
+		Calendar calendar = Calendar.getInstance();
+		String dateString = ""+calendar.get(Calendar.YEAR)+"-"+
+							( calendar.get(Calendar.MONTH) +1 )+"-"+
+							calendar.get(Calendar.DAY_OF_MONTH);
+		if(list.get(position).getDate().compareTo(dateString) < 0 )
+		{
+			startAndStopButton.setEnabled(false);
+			deleteButton.setEnabled(false);
+			endButton.setEnabled(false); 
+		}
+		else if( list.get(position).getIsFinish() == 1 ){
 			startAndStopButton.setEnabled(false);
 			deleteButton.setEnabled(false);
 			endButton.setEnabled(false); 
 			}
-		else  if( list.get(position).getIsFinish() == 0 && list.get(position).getRealTime()!=0 )
+		else  if( list.get(position).getIsFinish() == 2 )
 			startAndStopButton.setEnabled(false);
 		
 		final Calendar mCalendar=Calendar.getInstance();
@@ -102,6 +113,8 @@ public class DayPlanAdapter extends BaseAdapter {
 
 			// TODO Auto-generated method stub
 			//int position = listView.getSelectedItemPosition();
+			
+			
 			int position = (Integer)view.getTag();
 			Button button = (Button)view;
 			Resources resources = context.getResources();

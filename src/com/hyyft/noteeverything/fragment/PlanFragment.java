@@ -97,7 +97,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 				for( int i=0 ; i<noteGlobal.planList.size() ;i++  ){
 					
 					adapter.addList(noteGlobal.planList.get(i));
-					Log.i(Tag , noteGlobal.planList.get(i).toString());
+					//Log.i(Tag , noteGlobal.planList.get(i).toString());
 				}		
 				listView.setAdapter(adapter);
 	}
@@ -158,14 +158,17 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		DayPlanDao dao = new DayPlanDao(getActivity());
 		ContentValues values = new ContentValues();
 		noteGlobal.planList.get(position).setRealBeginTime(System.currentTimeMillis());
+		noteGlobal.planList.get(position).setIsFinish((short)2);
+		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, noteGlobal.planList.get(position).getIsFinish());
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALBEGINTIME, noteGlobal.planList.get(position).getRealBeginTime());
 		dao.update(values,  noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
+		
 	}
 
 
 
 	@Override
-	public void PressBtnEnd(int position ,Button startAndStopButton , Button deleteButton ) {
+	public void PressBtnEnd(int position ,Button startAndStopButton , Button deleteButton  ) {
 		// TODO Auto-generated method stub
 		deleteButton.setEnabled(false);
 		startAndStopButton.setEnabled(false);
@@ -197,7 +200,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALTIME,dayPlan.getRealTime());
         dao.update(values,  noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
         
-        Log.i("yuan" , ""+dayPlan.getRealTime());
+        //Log.i("yuan" , ""+dayPlan.getRealTime());
 	}
 
 
