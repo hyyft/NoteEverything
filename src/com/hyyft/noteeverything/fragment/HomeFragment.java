@@ -1,13 +1,18 @@
 package com.hyyft.noteeverything.fragment;
 
 import com.hyyft.noteeverything.R;
+import com.hyyft.noteeverything.myconst.PrefConst;
 import com.hyyft.noteeverything.weather.Weather;
 import com.hyyft.noteeverything.weather.WeatherAsyncTast;
 import com.hyyft.noteeverything.weather.WeatherAsyncTast.GetWeatherTast;
 import android.view.View.OnClickListener;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +38,7 @@ public class HomeFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		weathers = new Weather[WEATHER_DAY];
-		WeatherAsyncTast wAsyncTast = new WeatherAsyncTast(getWeatherTast);
+		WeatherAsyncTast wAsyncTast = new WeatherAsyncTast(getWeatherTast , getActivity());
 		wAsyncTast.execute(new String[]{});
 		
 		
@@ -65,7 +70,7 @@ public class HomeFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			WeatherAsyncTast wAsyncTast = new WeatherAsyncTast(getWeatherTast);
+			WeatherAsyncTast wAsyncTast = new WeatherAsyncTast(getWeatherTast , getActivity());
 			HomeFragment.this.updateTextView.setText("更新中.....");
 			wAsyncTast.execute(new String[]{});
 			
@@ -162,6 +167,7 @@ public class HomeFragment extends Fragment {
 			// TODO Auto-generated method stub
 			if (weathers == null) {
 					Toast.makeText(getActivity(), "网络超时", Toast.LENGTH_LONG).show();
+					getOldWeather();
 					
 			} else {
 				HomeFragment.this.weathers = weathers;
@@ -173,6 +179,29 @@ public class HomeFragment extends Fragment {
 	
 		}
 	};
+	
+	
+	private void  getOldWeather(){
+		SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PrefConst.NAME, Context.MODE_PRIVATE);
+		Time time = new Time();
+		time.setToNow();
+		String date;
+		date = sharedPreferences.getString(PrefConst.W_UPDATE_DATE, "none");
+		if( !date.equals(""+time.year+time.month+time.monthDay) )return;
+		for(int i=0 ;i < weathers.length ;i++){
+			weathers[i] = new Weather();
+			weathers[i].setIcon(sharedPreferences.getString(PrefConst.W_ICON+"-"+i, "w_no_d") );
+			weathers[i].setAddr(sharedPreferences.getString( PrefConst.W_ADDR , "广州"));
+			weathers[i].setTemHight(sharedPreferences.getString( PrefConst.W_TEMHIGHT+"-"+i , "0"));
+			weathers[i].setTemLow(sharedPreferences.getString( PrefConst.W_TEMLOW+"-"+i , "0"));
+			weathers[i].setTemNow(sharedPreferences.getString( PrefConst.W_TEMNOW+"-"+i , "0"));
+			weathers[i].setWeather(sharedPreferences.getString( PrefConst.W_WEATHER+"-"+i , ""));
+			weathers[i].setWind(sharedPreferences.getString( PrefConst.W_WIND+"-"+i , ""));
+			
+		}
+		
+		getWeather();
+	}
 
 	
 }

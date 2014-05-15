@@ -12,7 +12,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hyyft.noteeverything.modal.CustomerHttpClient;
+import com.hyyft.noteeverything.myconst.PrefConst;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.text.format.Time;
 import android.util.Log;
 
 public class GetWeather {
@@ -22,7 +27,12 @@ public class GetWeather {
 	private JSONArray jsonArray;
 	private Weather[] weather;
 	private String cityName;
+	private Context context;
 	
+	
+	public GetWeather(Context context){
+		this.context = context;
+	}
 	
 	public  Weather[] getWeather() throws Exception{
 		cityName = getLocation();
@@ -54,8 +64,28 @@ public class GetWeather {
 			Log.e(TAG, "获取json失败");
 		}
 		analyDateJson();
-
+		writeWeather();
 		return weather;
+	}
+	
+	private void writeWeather(){
+		SharedPreferences sharedPreferences = context.getSharedPreferences(PrefConst.NAME, Context.MODE_PRIVATE);
+		Time time = new Time();
+		time.setToNow();
+		Editor editor = sharedPreferences.edit();
+		editor.putString(PrefConst.W_UPDATE_DATE , ""+time.year+time.month+time.monthDay);
+		editor.putString(PrefConst.W_ADDR, cityName);
+		for(int i=0 ;i < weather.length ;i++){
+			editor.putString(PrefConst.W_ICON+"-"+i, weather[i].getIcon());
+			editor.putString(PrefConst.W_TEMHIGHT+"-"+i, weather[i].getTemHight());
+			editor.putString(PrefConst.W_TEMLOW+"-"+i, weather[i].getTemLow());
+			editor.putString(PrefConst.W_TEMNOW+"-"+i, weather[i].getTemNow());
+			editor.putString(PrefConst.W_WEATHER+"-"+i, weather[i].getWeather());
+			editor.putString(PrefConst.W_WIND+"-"+i, weather[i].getWind());
+			
+		}
+		editor.commit();
+		//Log.i("HomeFragment" , sharedPreferences.getString(PrefConst.W_WEATHER+"-"+0, "0000"));
 	}
 	
 	private String getLocation() throws Exception{
@@ -70,15 +100,16 @@ public class GetWeather {
 			 for (String s = reader.readLine(); s != null; s = reader.readLine()) {
 		            builder.append(s);
 			 }
-//			 Log.i(TAG , "获取位置成功");
+			 //Log.i(TAG , reader.toString());
 			 JSONObject json = new JSONObject(builder.toString()).getJSONObject("content").getJSONObject("address_detail");
 			 city = analyticJson(json , "city").toString();
 			 
-			 Log.i(TAG , city.substring(0, city.length()-1) );
+			 //Log.i(TAG , city.substring(0, city.length()-1) );
 		} catch (Exception e) {
 			// TODO: handle exception
+			city = "广州";
 			Log.e(TAG, "Location失败"); 
-			return null;
+			return city;
 		}
 		return city.substring(0, city.length()-1);
 	}
@@ -113,12 +144,14 @@ public class GetWeather {
 				weather[i].setWeather(info.getString("weather"));
 				weather[i].setWind(info.getString("wind"));
 				weather[i].setIcon(getIcon(weather[i].getWeather()) );
-				Log.i("HomeFragment" , weather[i].getWeather());
+				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+		
 	}
 	
 	private String getIcon(String weather){

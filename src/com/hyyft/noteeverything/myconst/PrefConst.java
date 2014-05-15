@@ -16,5 +16,14 @@ public class PrefConst {
 	
 	public static final int maxCount = 12;
 	
+	public static final String W_UPDATE_DATE = "w_update_date";
+	public static final String W_ADDR="w_addr";
+	public static final String W_TEMHIGHT="w_temHight";
+	public static final String W_TEMLOW="w_temLow";
+	public static final String W_TEMNOW="w_temNow";
+	public static final String W_WEATHER = "w_weather";
+	public static final String W_ICON = "w_icon";
+	public static final String W_WIND = "w_wind";
+	
 	
 }

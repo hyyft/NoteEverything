@@ -1,6 +1,7 @@
 package com.hyyft.noteeverything.weather;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 /**
@@ -13,14 +14,16 @@ public class WeatherAsyncTast extends AsyncTask<String, String, Weather[]> {
 	private GetWeather getWeather;
 	private Weather[] weathers;
 	private GetWeatherTast getWeatherTast;
+	private Context context;
 	
-	public WeatherAsyncTast(GetWeatherTast getWeatherTast){
+	public WeatherAsyncTast(GetWeatherTast getWeatherTast , Context context){
 		this.getWeatherTast = getWeatherTast;
+		this.context = context;
 	}
 	@Override
 	protected Weather[] doInBackground(String... params) {
 		// TODO Auto-generated method stub
-		getWeather = new GetWeather();
+		getWeather = new GetWeather(context);
 		weathers = new Weather[4];
 		try {
 			weathers = getWeather.getWeather();
