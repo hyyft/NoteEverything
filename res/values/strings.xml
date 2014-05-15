@@ -45,6 +45,11 @@
     <string name="do_tv_content_desc">内容</string>
     <string name="do_btn_save">保存</string>
     <string name="do_btn_giveup">放弃</string>
+    
+    <string name="check_btn_plan">计划</string>
+    <string name="check_btn_do">执行</string>
+    <string name="check_btn_plantodo">计划情况</string>
+    <string name="check_btn_actualltodo">实际情况</string>
        
 
 </resources>
