@@ -202,6 +202,7 @@ public class DrawPie {
 		List<DayPlan> list = dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, date);
 		for(int i=0 ; i < list.size() ; i++){
 			if( ! list.get(i).getBigTag().equals(bigTag))continue;
+			//Log.i("yuan" , ""+list.get(i).getRealTime());
 			if( (integer = map.get(list.get(i).getLitleTag()) ) == null )
 				map.put( list.get(i).getLitleTag(), list.get(i).getRealTime() );
 			else 

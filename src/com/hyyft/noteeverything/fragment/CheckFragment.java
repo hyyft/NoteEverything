@@ -68,6 +68,8 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 		// TODO Auto-generated method stub
 		super.onResume();
 		bigTagSpinner.setSelection(0);
+		
+		drawLayout.removeAllViews();
 	}
 
 

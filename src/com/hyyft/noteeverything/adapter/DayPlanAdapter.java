@@ -97,7 +97,7 @@ public class DayPlanAdapter extends BaseAdapter {
 		tagTextView.setText(list.get(position).getBigTag()+"-"+list.get(position).getLitleTag());
 		titleTextView.setText(list.get(position).getTitle());
 		contentTextView.setText(list.get(position).getContent());
-		Log.i("TAG"  , list.get(position).getLevel()+list.get(position).getOrder() );
+		//Log.i("TAG"  , list.get(position).getLevel()+list.get(position).getOrder() );
 		return convertView;
 	}
 	public void addList(DayPlan dayPlan){  
@@ -120,11 +120,11 @@ public class DayPlanAdapter extends BaseAdapter {
 			Resources resources = context.getResources();
 			
 			if( view.getId() == R.id.btn_plan_start_stop ){
-				if( button.getText().toString().equals(resources.getString(R.string.btn_text_start)) ){
+//				if( button.getText().toString().equals(resources.getString(R.string.btn_text_start)) ){
 					//button.setText(resources.getString(R.string.btn_text_stop));
 					button.setEnabled(false);
 					callBack.PressBtnStart(position);
-				}
+//				}
 //				else if( button.getText().toString().equals(resources.getString(R.string.btn_text_stop)) ){
 //					button.setText(resources.getString(R.string.btn_text_continue));
 //					callBack.PressBtnStop(position);

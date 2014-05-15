@@ -175,10 +175,10 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		
 		DayPlanDao dao = new DayPlanDao(getActivity());
 		ContentValues values = new ContentValues();
-		noteGlobal.planList.get(position).setRealBeginTime(System.currentTimeMillis());
+		long now = System.currentTimeMillis();
 		noteGlobal.planList.get(position).setIsFinish((short )1 );
-		
-		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALBEGINTIME, noteGlobal.planList.get(position).getRealBeginTime());
+		noteGlobal.planList.get(position).setRealTime( (int)(now - noteGlobal.planList.get(position).getRealBeginTime())/60000);
+		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALTIME, noteGlobal.planList.get(position).getRealTime());
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, noteGlobal.planList.get(position).getIsFinish());
 		dao.update(values, noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
 //		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
