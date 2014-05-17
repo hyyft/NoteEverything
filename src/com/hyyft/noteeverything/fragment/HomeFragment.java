@@ -8,10 +8,10 @@ import com.hyyft.noteeverything.weather.WeatherAsyncTast.GetWeatherTast;
 import android.view.View.OnClickListener;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+//import android.app.Fragment;
 import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
 	 */
 	private void getWeather(){
 		
-		int indentify;
+		int indentify; ViewGroup parentView;
 		Resources resources = getActivity().getResources();	
 
 		addrTextView.setText(weathers[0].getAddr());
@@ -119,7 +119,11 @@ public class HomeFragment extends Fragment {
 		indentify = resources.getIdentifier(getActivity().getPackageName()+":drawable/"+weathers[1].getIcon(), null, null);
 		ficonImageView.setImageResource(indentify);
 		LinearLayout layout = (LinearLayout)view.findViewById(R.id.w_futrue1_container);
+		//layout.removeAllViews();
 		layout.removeAllViews();
+		
+		if(( parentView = (ViewGroup)view2.getParent() )!= null  )
+			parentView.removeAllViewsInLayout();
 		layout.addView(view2);
 		
 		
@@ -137,6 +141,8 @@ public class HomeFragment extends Fragment {
 		 layout = (LinearLayout) view
 				.findViewById(R.id.w_futrue2_container);
 		 layout.removeAllViews();
+		 if(( parentView = (ViewGroup)view3.getParent() )!= null  )
+				parentView.removeAllViewsInLayout();
 		layout.addView(view3);
 		
 		// 设置第四天天气
@@ -153,6 +159,8 @@ public class HomeFragment extends Fragment {
 		 layout = (LinearLayout) view
 				.findViewById(R.id.w_futrue3_container);
 		layout.removeAllViews();
+		if(( parentView = (ViewGroup)view4.getParent() )!= null  )
+			parentView.removeAllViewsInLayout();
 		layout.addView(view4);
 		
 	}

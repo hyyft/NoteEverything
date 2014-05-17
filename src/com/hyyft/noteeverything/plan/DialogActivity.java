@@ -4,18 +4,14 @@ package com.hyyft.noteeverything.plan;
 import java.io.FileDescriptor;
 import java.io.IOException;
 
+import com.hyyft.noteeverything.MainActivity;
 import com.hyyft.noteeverything.R;
-import com.hyyft.noteeverything.service.MainService;
-import com.hyyft.noteeverything.service.MainService.MainServiceBinder;
 
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +28,7 @@ public class DialogActivity extends Activity {
 	private Button yesBtn , noBtn;
 	private TextView planTitleTV;
     private MediaPlayer player = null;
-    private MainService mainService;
+   // private MainService mainService;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,8 +50,9 @@ public class DialogActivity extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		Intent intent = new Intent(this, MainService.class);
-		bindService(intent, sConnection, BIND_AUTO_CREATE);
+//		Intent intent = new Intent(this, MainService.class);
+//		if(mainService == null)
+//			bindService(intent, sConnection, BIND_AUTO_CREATE);
 	}
 
 
@@ -69,21 +66,21 @@ public class DialogActivity extends Activity {
 	 /**
      * sConnection变量用于连接mainService
      */
-	private ServiceConnection sConnection = new ServiceConnection() {
-		
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder service) {
-			// TODO Auto-generated method stub
-			mainService = ((MainServiceBinder)service).getService();
-			mainService.updateAlarm();
-		}
-	};
+//	private ServiceConnection sConnection = new ServiceConnection() {
+//		
+//		@Override
+//		public void onServiceDisconnected(ComponentName name) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//		
+//		@Override
+//		public void onServiceConnected(ComponentName name, IBinder service) {
+//			// TODO Auto-generated method stub
+//			mainService = ((MainServiceBinder)service).getService();
+//			mainService.updateAlarm();
+//		}
+//	};
 
 
 	private OnClickListener listener = new OnClickListener() {
@@ -142,6 +139,8 @@ public class DialogActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		MainActivity.mainService.updateAlarm();
 	
 	}
 	

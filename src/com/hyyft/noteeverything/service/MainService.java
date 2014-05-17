@@ -21,6 +21,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.format.Time;
+import android.util.Log;
 
 /**
  * 用于注册Alram的service
@@ -67,10 +68,13 @@ public class MainService extends Service {
 	 * @param planTime 计划响铃时间
 	 */
 	public void regeditAlarm(long planTime , String message) {
+		
 		PendingIntent sender = PendingIntent.getActivity(this, 0, new Intent(
 				this, DialogActivity.class).putExtra("TEXT", message), 0);
 		Calendar calendar = Calendar.getInstance();
+		
 		calendar.setTimeInMillis(planTime);
+		Log.i("yuan" , ""+planTime+"::"+ calendar.getTimeInMillis());
 		AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		manager.cancel(sender);
 		manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);

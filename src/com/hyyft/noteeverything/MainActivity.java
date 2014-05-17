@@ -28,7 +28,7 @@ public class MainActivity extends FragmentActivity {
 	private TabHost tabHost;
 	private TabSpec tabSpec;
 	private LayoutInflater layoutInflater;
-	private MainService mainService;
+	public static MainService mainService;
 	
 	
 	
