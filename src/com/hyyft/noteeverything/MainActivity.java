@@ -1,6 +1,7 @@
 package com.hyyft.noteeverything;
 
 import com.hyyft.noteeverything.fragment.DoFragment;
+import com.hyyft.noteeverything.fragment.GestureListener;
 import com.hyyft.noteeverything.fragment.HomeFragment;
 import com.hyyft.noteeverything.fragment.PlanFragment;
 import com.hyyft.noteeverything.fragment.CheckFragment;
@@ -15,9 +16,12 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -25,11 +29,12 @@ import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity {
 
-	private TabHost tabHost;
+	public static TabHost tabHost;
 	private TabSpec tabSpec;
 	private LayoutInflater layoutInflater;
 	public static MainService mainService;
-	
+	private GestureDetector gestureDetector; 
+	private OnTouchListener gestureListener; 
 	
 	
 	@Override
@@ -40,12 +45,39 @@ public class MainActivity extends FragmentActivity {
 		tabHost.setup();
 		layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);		
 		tabHost.setOnTabChangedListener(listener);	
-		
 		initTab();
+		
+		gestureDetector = new GestureDetector(new GestureListener(this, 0));
+		gestureListener = new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if (gestureDetector.onTouchEvent(event)) {
+					return true;
+				}
+				return false;
+			}
+		};
 		
 	}
 	
 	
+	
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		// TODO Auto-generated method stub
+		if (gestureDetector.onTouchEvent(ev)) {  
+			ev.setAction(MotionEvent.ACTION_CANCEL);  
+        } 
+		
+		return super.dispatchTouchEvent(ev);
+	}
+
+
+
+
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub

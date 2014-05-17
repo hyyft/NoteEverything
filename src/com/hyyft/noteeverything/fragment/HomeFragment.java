@@ -13,8 +13,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 //import android.app.Fragment;
 import android.text.format.Time;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +34,6 @@ public class HomeFragment extends Fragment {
 	private View view , view2 , view3 , view4;
 	private Weather[] weathers;
 	private final int WEATHER_DAY = 4;
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -210,6 +212,8 @@ public class HomeFragment extends Fragment {
 		
 		getWeather();
 	}
+	
+	
 
 	
 }
