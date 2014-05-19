@@ -1,12 +1,10 @@
-package com.hyyft.noteeverything.fragment;
+package com.hyyft.noteeverything;
 
-import com.hyyft.noteeverything.MainActivity;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
-import android.widget.TabHost;
 
 
 public class GestureListener extends SimpleOnGestureListener {
@@ -15,10 +13,10 @@ public class GestureListener extends SimpleOnGestureListener {
 	private static final int  SWIPE_MIN_DISTANCE = 150;
 	private int maxTabIndex = 3;
 	private Context context;
-	private int index;
+
 	public GestureListener(Context context , int index ){
 		this.context = context;
-		this.index = index;
+
 	}
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
@@ -26,25 +24,25 @@ public class GestureListener extends SimpleOnGestureListener {
 			
 			try {
 				
-				Log.i("GestureListener" , "touch");
+				//Log.i("GestureListener" , "touch");
 				
 				// right to left swipe
 				if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
 					Log.i("test", "right");
-					if (index == maxTabIndex ) {
-						index = maxTabIndex;
+					if (MainActivity.index == maxTabIndex ) {
+						MainActivity.index = maxTabIndex;
 					} else {
-						index++;
+						MainActivity.index++;
 					}
-					MainActivity.tabHost.setCurrentTab(index);
+					MainActivity.tabHost.setCurrentTab(MainActivity.index);
 				} else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE ) {
 					Log.i("test", "left");
-					if (index == 0) {
-						index = 0;
+					if (MainActivity.index == 0) {
+						MainActivity.index = 0;
 					} else {
-						index--;
+						MainActivity.index--;
 					}
-					MainActivity.tabHost.setCurrentTab(index);
+					MainActivity.tabHost.setCurrentTab(MainActivity.index);
 				}
 			} catch (Exception e) {
 			}

@@ -253,6 +253,17 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 	public void dateDialogCallBack(String date) {
 		// TODO Auto-generated method stub
 		dateTextView.setText(date);
+		whichSelected = PLANTEXTVIEW;
+		planTextView.setBackgroundColor(Color.parseColor("#999999"));
+		doTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+		btnLayout.addView(subvView );
+		
+		drawLayout.removeAllViews();
+		drawLayout.addView(new DrawPie(getActivity(), bigTagList)
+				.drawPlan(dateTextView.getText().toString(), "È«²¿" ,DrawPie.DRAW_PLANTODO) );
+		drawWhich = DrawPie.DRAW_PLANTODO;
+		bigTagSpinner.setSelection(0);
+		
 	}
 
 	@Override

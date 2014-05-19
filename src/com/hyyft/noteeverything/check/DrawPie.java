@@ -1,6 +1,7 @@
 package com.hyyft.noteeverything.check;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -20,8 +21,10 @@ import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.modal.DoWhat;
 
 
+import android.R.integer;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.format.Time;
 import android.util.Log;
 
 
@@ -217,7 +220,8 @@ public class DrawPie {
 		DoWhatDao dao = new DoWhatDao(context);
 		Integer integer;
 		List<DoWhat> list = dao.getAll(PlanDbHelperContract.DoWhatTableInfo.TABLE_NAME, date);
-		for(int i=0 ; i < list.size()-1 ; i++){
+		int i=0;
+		for( ; i < list.size()-1 ; i++){
 			
 			if( (integer = map.get(list.get(i).getBigTag()) )== null ){
 					map.put( list.get(i).getBigTag(), (int)( list.get(i+1).getBeginTime() - list.get(i).getBeginTime())/60000 );
@@ -225,7 +229,30 @@ public class DrawPie {
 			else 
 				map.put(list.get(i).getBigTag(), integer.intValue()+(int)( list.get(i+1).getBeginTime() - list.get(i).getBeginTime())/60000 );			
 		}
+		if(i!=0)
+			map.put(list.get(i).getBigTag(), getEnd(date, list.get(i).getBeginTime()));
 		return map;
+	}
+	
+	private int getEnd(String date , long beginTime){
+		String today ; int useTime;
+		Time time = new Time();
+		time.setToNow();
+		today = time.year+"-"+(time.month+1)+"-"+time.monthDay;
+		if(today.equals(date)){
+			useTime = (int)( time.toMillis(false) - beginTime)/60000;
+			//Log.i("DraPie", ""+useTime);
+		}else{
+			time.year = Integer.valueOf( date.split("-")[0] ).intValue();
+			time.month = Integer.valueOf( date.split("-")[1] ).intValue() - 1;
+			time.monthDay = Integer.valueOf( date.split("-")[2] ).intValue();
+			time.hour = 23;
+			time.minute = 59;
+			time.second = 60;
+			useTime = (int)(time.toMillis(false) - beginTime)/60000;
+			
+		}
+		return useTime;
 	}
 	private Map<String, Integer> getDoByBigTag(String bigTag , String date){
 

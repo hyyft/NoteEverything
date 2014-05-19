@@ -1,7 +1,6 @@
 package com.hyyft.noteeverything;
 
 import com.hyyft.noteeverything.fragment.DoFragment;
-import com.hyyft.noteeverything.fragment.GestureListener;
 import com.hyyft.noteeverything.fragment.HomeFragment;
 import com.hyyft.noteeverything.fragment.PlanFragment;
 import com.hyyft.noteeverything.fragment.CheckFragment;
@@ -16,9 +15,11 @@ import android.os.IBinder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 public class MainActivity extends FragmentActivity {
 
 	public static TabHost tabHost;
+	public static int index = 0;
 	private TabSpec tabSpec;
 	private LayoutInflater layoutInflater;
 	public static MainService mainService;
@@ -154,6 +156,7 @@ public class MainActivity extends FragmentActivity {
 				} else {
 					fTransaction.attach(homeFragment);
 				}
+				index = 0;
 			}
 			else if( tabId.equalsIgnoreCase("plan") ){
 				if (planFragment == null) {
@@ -162,6 +165,7 @@ public class MainActivity extends FragmentActivity {
 				} else {
 					fTransaction.attach(planFragment);
 				}
+				index = 1;
 			}
 			else if( tabId.equalsIgnoreCase("do") ){
 				if (doFragment == null) {
@@ -170,6 +174,7 @@ public class MainActivity extends FragmentActivity {
 				} else {
 					fTransaction.attach(doFragment);
 				}
+				index = 2;
 			}
 			else if( tabId.equalsIgnoreCase("check") ){
 				if (checkFragment == null) {
@@ -178,6 +183,7 @@ public class MainActivity extends FragmentActivity {
 				} else {
 					fTransaction.attach(checkFragment);
 				}
+				index = 3;
 			}
 			fTransaction.commit();
 		}
@@ -228,5 +234,33 @@ public class MainActivity extends FragmentActivity {
 //		actionBar.setHomeButtonEnabled(true);
 		return true;
 	}
+
+
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		String title = item.getTitle().toString();
+		Log.i("MainActivity", title);
+		if(title.equals(this.getString(R.string.text_backup))){
+			
+		}
+		else if (title.equals(this.getString(R.string.text_restore))) {
+			
+		}
+		else if (title.equals(this.getString(R.string.text_set))) {
+			
+		}
+		else if (title.equals(this.getString(R.string.text_help))) {
+			
+		}
+		else if (title.equals(this.getString(R.string.text_quit))) {
+			MainActivity.this.finish();
+		}
+		return true;
+	}
+	
+	
 
 }
