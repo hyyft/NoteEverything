@@ -3,6 +3,7 @@ package com.hyyft.noteeverything.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hyyft.noteeverything.MainActivity;
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.adapter.DayPlanAdapter;
 import com.hyyft.noteeverything.adapter.DayPlanAdapter.DayPlanAdapterCallBack;
@@ -161,7 +162,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, noteGlobal.planList.get(position).getIsFinish());
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALBEGINTIME, noteGlobal.planList.get(position).getRealBeginTime());
 		dao.update(values,  noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
-		
+		MainActivity.mainService.updateAlarm();
 	}
 
 
@@ -175,12 +176,20 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		DayPlanDao dao = new DayPlanDao(getActivity());
 		ContentValues values = new ContentValues();
 		long now = System.currentTimeMillis();
+		if(noteGlobal.planList.get(position).getIsFinish() == 0){
+			noteGlobal.planList.get(position).setRealTime(0);
+		}
+		else {
+			noteGlobal.planList.get(position).setRealTime( (int)(now - noteGlobal.planList.get(position).getRealBeginTime())/60000);
+		}
 		noteGlobal.planList.get(position).setIsFinish((short )1 );
-		noteGlobal.planList.get(position).setRealTime( (int)(now - noteGlobal.planList.get(position).getRealBeginTime())/60000);
+		
+		
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALTIME, noteGlobal.planList.get(position).getRealTime());
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, noteGlobal.planList.get(position).getIsFinish());
 		dao.update(values, noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
-//		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
+		MainActivity.mainService.updateAlarm();
+		//		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
 //				.get(position).getIsFinish());
 //		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
 //				.get(position).getOrder());
@@ -198,7 +207,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		ContentValues values = new ContentValues();
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALTIME,dayPlan.getRealTime());
         dao.update(values,  noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
-        
+        MainActivity.mainService.updateAlarm();
         //Log.i("yuan" , ""+dayPlan.getRealTime());
 	}
 
@@ -208,6 +217,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	public void PressBtnDel(int position) {
 		// TODO Auto-generated method stub
 		noteGlobal.deletePlan(position, dateTextView.getText().toString());
+		MainActivity.mainService.updateAlarm();
 		addPlan_View();
 	}
 

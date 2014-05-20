@@ -22,7 +22,7 @@ public class NoteGlobal extends Application {
 	public void AddAPlan(DayPlan dayPlan) {
 		int j;
 		for ( j= 0; j < planList.size()
-				&& (planList.get(j).getPlanBeginTime() < dayPlan.getPlanBeginTime()); j++);
+				&& (planList.get(j).getPlanBeginTime() > dayPlan.getPlanBeginTime()); j++);
 		planList.add( j, dayPlan );
 		maxPlanOrder++;
 
@@ -41,7 +41,7 @@ public class NoteGlobal extends Application {
 	public DayPlan getNearPlan(  ){
 		long currentTime = System.currentTimeMillis();
 		for ( int j= 0; j < planList.size() ; j++ ){
-			if( currentTime <= planList.get(j).getPlanBeginTime() )
+			if( currentTime <= planList.get(j).getPlanBeginTime() && planList.get(j).getIsFinish()==0 )
 				return planList.get(j);
 		}
 	     return null;

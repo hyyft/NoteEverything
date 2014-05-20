@@ -61,6 +61,9 @@ public class MainService extends Service {
 		if( dayPlan != null ){
 			regeditAlarm(dayPlan.getPlanBeginTime() , dayPlan.getTitle());
 		}
+		else {
+			regeditAlarm( 0 , "");
+		}
 	}
 
 	/**
@@ -69,14 +72,16 @@ public class MainService extends Service {
 	 */
 	public void regeditAlarm(long planTime , String message) {
 		
+		
 		PendingIntent sender = PendingIntent.getActivity(this, 0, new Intent(
 				this, DialogActivity.class).putExtra("TEXT", message), 0);
 		Calendar calendar = Calendar.getInstance();
 		
 		calendar.setTimeInMillis(planTime);
-		Log.i("yuan" , ""+planTime+"::"+ calendar.getTimeInMillis());
+		//Log.i("yuan" , ""+planTime+"::"+ calendar.getTimeInMillis());
 		AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		manager.cancel(sender);
+		if(planTime == 0)return;
 		manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
 	}
 	
@@ -156,7 +161,7 @@ public class MainService extends Service {
 			else{
 				int j;
 				for( j=0 ; 
-					j<noteGlobal.planList.size() && ( noteGlobal.planList.get(j).getPlanBeginTime() < arraylist.get(i).getPlanBeginTime() );
+					j<noteGlobal.planList.size() && ( noteGlobal.planList.get(j).getPlanBeginTime() > arraylist.get(i).getPlanBeginTime() );
 					j++ );
 				noteGlobal.planList.add( j , arraylist.get(i));
 				

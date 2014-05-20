@@ -120,19 +120,9 @@ public class DayPlanAdapter extends BaseAdapter {
 			Resources resources = context.getResources();
 			
 			if( view.getId() == R.id.btn_plan_start_stop ){
-//				if( button.getText().toString().equals(resources.getString(R.string.btn_text_start)) ){
-					//button.setText(resources.getString(R.string.btn_text_stop));
 					button.setEnabled(false);
 					callBack.PressBtnStart(position);
-//				}
-//				else if( button.getText().toString().equals(resources.getString(R.string.btn_text_stop)) ){
-//					button.setText(resources.getString(R.string.btn_text_continue));
-//					callBack.PressBtnStop(position);
-//				}
-//				else if( button.getText().toString().equals(resources.getString(R.string.btn_text_continue)) ){
-//					button.setText(resources.getString(R.string.btn_text_stop));
-//					callBack.PressBtnStart(position);
-//				}
+				
 				
 			}
 			else if( view.getId() == R.id.btn_plan_finish ){
