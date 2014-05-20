@@ -182,8 +182,8 @@ public class DrawPie {
 		Integer integer;
 		List<DayPlan> list = dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, date);
 		for(int i=0 ; i < list.size() ; i++){
-			if( ! list.get(i).getBigTag().equals(bigTag))continue;
-			if( (integer = map.get(list.get(i).getLitleTag()) ) == null )
+			if( (!list.get(i).getBigTag().equals(bigTag)) && list.get(i).getIsFinish()!=1 )continue;
+			if( (integer = map.get(list.get(i).getLitleTag()) ) == null)
 				map.put( list.get(i).getLitleTag(), list.get(i).getPlanTime() );
 			else 
 				map.put(list.get(i).getLitleTag(), integer.intValue()+list.get(i).getPlanTime());			
@@ -197,7 +197,8 @@ public class DrawPie {
 		DayPlanDao dao = new DayPlanDao(context);
 		Integer integer;
 		List<DayPlan> list = dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, date);
-		for(int i=0 ; i < list.size() ; i++){
+		for(int i=0 ; i < list.size()  ; i++){
+			if( list.get(i).getIsFinish()!=1)continue;
 			if( (integer = map.get(list.get(i).getBigTag()) )== null )
 				map.put( list.get(i).getBigTag(), list.get(i).getRealTime() );
 			else 

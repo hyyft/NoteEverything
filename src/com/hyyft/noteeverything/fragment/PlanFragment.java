@@ -198,17 +198,10 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 
 
 	@Override
-	public void PressBtnStop(int position) {
+	public void PressBtnCheck(int position) {
 		// TODO Auto-generated method stub
-        DayPlanDao dao = new DayPlanDao(getActivity());
 		
-		DayPlan dayPlan = noteGlobal.planList.get(position);
-		dayPlan.setRealTime( dayPlan.getRealTime() + (int)( ( System.currentTimeMillis()-dayPlan.getRealBeginTime() )/(1000*60) ));
-		ContentValues values = new ContentValues();
-		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALTIME,dayPlan.getRealTime());
-        dao.update(values,  noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
-        MainActivity.mainService.updateAlarm();
-        //Log.i("yuan" , ""+dayPlan.getRealTime());
+          //在该处点击计划项中“”        
 	}
 
 

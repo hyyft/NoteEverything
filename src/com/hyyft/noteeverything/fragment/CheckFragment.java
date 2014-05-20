@@ -109,6 +109,7 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 		bigTagSpinner.setSelection(0);
 		drawWhich = PLANDOTEXTVIEW;
 		whichSelected = PLANTEXTVIEW;
+		whichSelected2 = PLANDOTEXTVIEW;
 		
 		bigTagSpinner.setOnItemSelectedListener(this);
 		dateTextView.setOnClickListener(textViewListener);

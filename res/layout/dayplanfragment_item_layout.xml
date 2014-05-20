@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingBottom="3dp"
     android:paddingLeft="3dp"
-    android:paddingRight="50dp"
+    android:paddingRight="20dp"
     android:paddingTop="3dp" >
 
 
@@ -88,6 +88,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
         android:gravity="center"
         android:orientation="horizontal" >
 
@@ -108,6 +109,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_text_give_up" />
+        
+        <Button
+            android:id="@+id/btn_plan_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_text_plan_check" />
     </LinearLayout>
 
 </LinearLayout>

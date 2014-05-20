@@ -23,7 +23,7 @@ public class DayPlanAdapter extends BaseAdapter {
 	private List<DayPlan> list = new ArrayList<DayPlan>();  
 	private Context context;
 	DayPlanAdapterCallBack callBack;
-	private Button startAndStopButton , endButton , deleteButton;
+	private Button startAndStopButton , endButton , deleteButton , checkButton;
 	
 	public DayPlanAdapter(Context context , DayPlanAdapterCallBack callBack){  
         this.context = context;  
@@ -71,6 +71,10 @@ public class DayPlanAdapter extends BaseAdapter {
 		startAndStopButton.setOnClickListener(listViewListener);
 		endButton.setOnClickListener(listViewListener);
 		deleteButton.setOnClickListener(listViewListener);
+		
+		checkButton = (Button)contentTextView.findViewById(R.id.btn_plan_check);
+		checkButton.setTag(position);
+		checkButton.setOnClickListener(listViewListener);
 		
 		Calendar calendar = Calendar.getInstance();
 		String dateString = ""+calendar.get(Calendar.YEAR)+"-"+
@@ -133,13 +137,16 @@ public class DayPlanAdapter extends BaseAdapter {
 				callBack.PressBtnDel(position);
 
 			}
+			else if( view.getId() == R.id.btn_plan_check ){
+				callBack.PressBtnCheck(position);
+			}
       }
 	};
 	
 	public interface DayPlanAdapterCallBack{
 		public void PressBtnStart(int position);
 		public void PressBtnEnd(int position ,Button startAndStopButton , Button deleteButton);
-		public void PressBtnStop(int position );
+		public void PressBtnCheck(int position );
 		public void PressBtnDel(int position);
 	}
 
