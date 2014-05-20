@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +37,7 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 	
 	private static final int PLANDOTEXTVIEW = 1;
 	private static final int ACTUALLDOTEXTVIEW = 2;
+	private static final String TAG = "CheckFragment";
 	private  int whichSelected2 = PLANDOTEXTVIEW;
 	
 	private int drawWhich = DrawPie.DRAW_PLANTODO;
@@ -56,8 +58,8 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 		
 		subvView = LayoutInflater.from(getActivity()).inflate(R.layout.check_plan_and_actually, null);
 		findView(view);
-		initView();
 		
+		initView();
 		return view;
 	}
 	
@@ -67,9 +69,9 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		bigTagSpinner.setSelection(0);
+		//bigTagSpinner.setSelection(0);
 		
-		drawLayout.removeAllViews();
+		
 	}
 
 
@@ -86,6 +88,7 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 		
 	}
 	private void initView(){
+		
 		Time time = new Time();
 		time.setToNow();
 		dateTextView.setText(""+time.year+"-"+(time.month+1)+"-"+time.monthDay);
@@ -97,12 +100,15 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 		actullyDoTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
 	
 		drawLayout.removeAllViews();
+		//Log.i(TAG, "Ö´ÐÐinitView");
 		drawLayout.addView(new DrawPie(getActivity(), bigTagList)
 				.drawPlan(dateTextView.getText().toString(), "È«²¿" , DrawPie.DRAW_PLANTODO) );
 		
 		adapter = getBigTag();
 		bigTagSpinner.setAdapter(adapter);
 		bigTagSpinner.setSelection(0);
+		drawWhich = PLANDOTEXTVIEW;
+		whichSelected = PLANTEXTVIEW;
 		
 		bigTagSpinner.setOnItemSelectedListener(this);
 		dateTextView.setOnClickListener(textViewListener);
@@ -227,6 +233,7 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
+		//Log.i("hyyft" , "onItemSelected");
 		drawLayout.removeAllViews();
 		if( drawWhich == DrawPie.DRAW_ACTULLY ||  drawWhich == DrawPie.DRAW_PLANTODO){
 		drawLayout.addView(new DrawPie(getActivity(), bigTagList)

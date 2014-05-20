@@ -72,9 +72,18 @@ public class DrawPie {
 		CategorySeries series = new CategorySeries(bigTag);
 		Map<String, Integer > map ;
 		
-		if(tag == DRAW_PLANTODO )map = getPlanSituation(bigTag ,date);
-		else if(tag == DRAW_ACTULLY) map = getRealSituation(bigTag , date);
-		else map = getDoWhat(bigTag , date);
+		if(tag == DRAW_PLANTODO ){
+			map = getPlanSituation(bigTag ,date);
+			//Log.i("hyyft", "DRAW_PLANTODO");
+		}
+		else if(tag == DRAW_ACTULLY){
+			map = getRealSituation(bigTag , date);
+			//Log.i("hyyft", "DRAW_ACTULLY");
+		}
+		else {
+			map = getDoWhat(bigTag , date);
+			//Log.i("hyyft", "DRAW_Dowhat");
+		}
 		
 		Iterator<Map.Entry<String,Integer>> iterator = map.entrySet().iterator();
 		if(  !iterator.hasNext() ) {
