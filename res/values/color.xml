@@ -9,4 +9,6 @@
     
     <color name="plam_TextView_Selected_backgroud_color">#EAEAEA</color>
     <color name="plan_addbigtag_titlebg">#00CC00</color>
+    
+    <color name="text_black_color">#000000</color>
 </resources>

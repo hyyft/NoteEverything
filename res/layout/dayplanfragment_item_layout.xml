@@ -75,8 +75,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#000000" />
-
+                android:background="#000000" 
+                android:hint="" />
+            
             <TextView
                 android:id="@+id/dayplanfragment_item_content"
                 android:layout_width="wrap_content"
@@ -96,24 +97,28 @@
             android:id="@+id/btn_plan_start_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@android:attr/buttonStyle"
             android:text="@string/btn_text_start" />
 
         <Button
             android:id="@+id/btn_plan_finish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@android:attr/buttonStyle"
             android:text="@string/btn_text_finish" />
 
         <Button
             android:id="@+id/btn_plan_give_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@android:attr/buttonStyle"
             android:text="@string/btn_text_give_up" />
         
         <Button
-            android:id="@+id/btn_plan_check"
+            android:id="@+id/btn_plan_checkplan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@android:attr/buttonStyle"
             android:text="@string/btn_text_plan_check" />
     </LinearLayout>
 

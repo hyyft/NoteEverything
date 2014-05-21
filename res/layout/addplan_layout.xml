@@ -1,82 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+    android:layout_height="match_parent"
     android:background="#CCCCCC"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <!-- 计划开始的时间 -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_margin="20dp"
-        >
-        <TextView 
-            android:id="@+id/add_date_textview"
+        android:orientation="horizontal" >
+
+        <TextView
             android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:gravity="center"
-        	android:background="@drawable/p_bg_tv"
-        	android:layout_marginRight="20dp"
-        	android:layout_weight="2"
-        	android:textSize="25sp"
-            />
-        <TextView 
-            android:id="@+id/add_time_textview"
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:gravity="center"
-        	android:background="@drawable/p_bg_tv"
-        	android:layout_weight="1"
-        	android:textSize="25sp"
-            />      
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="left"
+            android:text="@string/text_add_begintime"
+            android:textColor="@color/text_black_color"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/add_date_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/plan_tv_bg"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/add_time_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/plan_tv_bg"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
-    
+
     <!-- 计划的标题 -->
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-         >
-        <TextView 
+        android:orientation="horizontal" >
+
+        <TextView
             android:id="@+id/add_title_textview"
             android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:textSize="20sp"
-        	android:text="@string/text_addplan_title"
-            />
+            android:layout_height="wrap_content"
+            android:text="@string/text_addplan_title"
+            android:textColor="@color/text_black_color"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/add_title_edittext"
             android:layout_width="0dp"
-        	android:layout_height="wrap_content"
-        	android:textSize="20sp"
-        	android:singleLine="true"
-        	android:background="#FFFFFF"
-        	android:layout_weight="1"
-        	android:hint=""
-            />
-      
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:background="#FFFFFF"
+            android:hint=""
+            android:singleLine="true"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <!-- 计划的内容 -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal" 
         android:gravity="left|top"
-        >
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/add_content_textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="@string/text_addplan_content"
+            android:textColor="@color/text_black_color"
             android:textSize="20sp" />
 
         <EditText
@@ -84,63 +103,100 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
             android:background="#FFFFFF"
-            android:textSize="20sp" 
-            android:hint=""/>
+            android:gravity="top|left"
+            android:hint=""
+            android:padding="3dp"
+            android:textSize="20sp" />
     </LinearLayout>
-    
+
     <!-- 计划时间 -->
-    <TextView 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="left"
+            android:text="@string/text_add_usetime"
+            android:textColor="@color/text_black_color"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/add_plantime_textview"
             android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:background="@drawable/textview_bg"
-        	android:layout_marginTop="20dp"
-        	android:layout_marginRight="20dp"
-        	android:layout_marginLeft="20dp"
-        	android:text="@string/text_add_plantime_textview"
-        	android:textSize="25sp"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/plan_tv_bg"
+            android:text="@string/text_add_plantime_textview"
+            android:gravity="center"
+            android:textSize="20sp" />
+    </LinearLayout>
+
     <!-- plan tag -->
-    <TextView 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="left"
+            android:text="@string/text_add_selecttag"
+            android:textColor="@color/text_black_color"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/add_tag_textview"
             android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:background="@drawable/textview_bg"
-        	android:layout_marginTop="20dp"
-        	android:layout_marginRight="20dp"
-        	android:layout_marginLeft="20dp"
-        	android:textSize="25sp"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:background="@drawable/plan_tv_bg"
+            android:textSize="20sp" />
+    </LinearLayout>
+
     <!-- 按钮布局 -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal" 
-        >
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/add_btn_save"
+            style="@android:attr/buttonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_addplan_btn_save"
-            style="@android:attr/buttonStyle"
-            android:textSize="25sp"
-             />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/add_btn_giveup"
+            style="@android:attr/buttonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_addplan_btn_giveup"
-            style="@android:attr/buttonStyle"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </LinearLayout>
-    
 
 </LinearLayout>

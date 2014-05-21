@@ -5,8 +5,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,13 +64,14 @@ public class DayPlanAdapter extends BaseAdapter {
 		startAndStopButton.setTag(position);
 		endButton = (Button)convertView.findViewById(R.id.btn_plan_finish);
 		endButton.setTag(position);
+		
 		deleteButton = ( Button )convertView.findViewById(R.id.btn_plan_give_up);
 		deleteButton.setTag(position);
 		startAndStopButton.setOnClickListener(listViewListener);
 		endButton.setOnClickListener(listViewListener);
 		deleteButton.setOnClickListener(listViewListener);
 		
-		checkButton = (Button)contentTextView.findViewById(R.id.btn_plan_check);
+		checkButton = (Button)convertView.findViewById(R.id.btn_plan_checkplan);
 		checkButton.setTag(position);
 		checkButton.setOnClickListener(listViewListener);
 		
@@ -109,6 +108,8 @@ public class DayPlanAdapter extends BaseAdapter {
     } 
 	
 	
+	
+	
      private OnClickListener listViewListener = new OnClickListener() {
 		
 		@Override
@@ -121,7 +122,7 @@ public class DayPlanAdapter extends BaseAdapter {
 			
 			int position = (Integer)view.getTag();
 			Button button = (Button)view;
-			Resources resources = context.getResources();
+			//Resources resources = context.getResources();
 			
 			if( view.getId() == R.id.btn_plan_start_stop ){
 					button.setEnabled(false);
@@ -132,12 +133,15 @@ public class DayPlanAdapter extends BaseAdapter {
 			else if( view.getId() == R.id.btn_plan_finish ){
 				
 				button.setEnabled(false);
+				//startAndStopButton.setEnabled(false);
+				//deleteButton.setEnabled(false);
+				
 				callBack.PressBtnEnd(position , startAndStopButton , deleteButton);			
 			}else if( view.getId() == R.id.btn_plan_give_up ) {
 				callBack.PressBtnDel(position);
 
 			}
-			else if( view.getId() == R.id.btn_plan_check ){
+			else if( view.getId() == R.id.btn_plan_checkplan ){
 				callBack.PressBtnCheck(position);
 			}
       }

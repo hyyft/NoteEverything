@@ -13,6 +13,7 @@ import com.hyyft.noteeverything.dao.PlanDbHelperContract.PlanTableInfo;
 import com.hyyft.noteeverything.global.NoteGlobal;
 import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.plan.AddPlanActivity;
+import com.hyyft.noteeverything.plan.CheckMoreActivity;
 import com.hyyft.noteeverything.plan.CreateTimeDialog;
 import com.hyyft.noteeverything.plan.CreateTimeDialog.CreateTimeDialogCallBack;
 
@@ -35,7 +36,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	public static final int CALENDAR_REQUEST_CODE = 1;
 	public static final int ADDPLAN_REQUEST_CODE = 2;
 	private static final String Tag = "PlanFragment";
-	private View planItemView;
+	//private View planItemView;
 	private TextView dateTextView;
 	private NoteGlobal noteGlobal;
 	private ListView listView;
@@ -170,8 +171,12 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	@Override
 	public void PressBtnEnd(int position ,Button startAndStopButton , Button deleteButton  ) {
 		// TODO Auto-generated method stub
-		deleteButton.setEnabled(false);
-		startAndStopButton.setEnabled(false);
+//		deleteButton.setEnabled(false);
+//		startAndStopButton.setEnabled(false);
+		
+//		listView.getChildAt(position).findViewById(R.id.btn_plan_start_stop).setEnabled(false);
+		listView.getChildAt(position-listView.getFirstVisiblePosition())
+				.findViewById(R.id.btn_plan_give_up).setEnabled(false);
 		
 		DayPlanDao dao = new DayPlanDao(getActivity());
 		ContentValues values = new ContentValues();
@@ -189,6 +194,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, noteGlobal.planList.get(position).getIsFinish());
 		dao.update(values, noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
 		MainActivity.mainService.updateAlarm();
+		//addPlan_View();
 		//		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
 //				.get(position).getIsFinish());
 //		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
@@ -201,7 +207,9 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	public void PressBtnCheck(int position) {
 		// TODO Auto-generated method stub
 		
-          //在该处点击计划项中“”        
+          Intent intent = new Intent(getActivity() , CheckMoreActivity.class);  
+          intent.putExtra("index", position);
+          startActivity(intent);
 	}
 
 

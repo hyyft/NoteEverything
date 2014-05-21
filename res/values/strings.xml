@@ -23,7 +23,7 @@
     <string name="btn_text_add_plan">添加</string>
     <string name="btn_text_plan_check">查看</string>
     
-    <string name="text_addplan_title">题目</string>
+    <string name="text_addplan_title">标题</string>
     <string name="text_addplan_content">内容</string>
     <string name="text_addplan_btn_save">保存</string>
     <string name="text_addplan_btn_giveup">放弃</string>
@@ -32,6 +32,13 @@
     <string name="text_add_addlittletag_textview">增加小类</string>
     <string name="text_add_addtag_savebtn">确定</string>
     <string name="text_add_addtag_nobtn">取消</string>
+    <string name="text_add_begintime">开始开始</string>
+    <string name="text_add_usetime">计划用时</string>
+    <string name="text_add_realbegintime">实际开始</string>
+    <string name="text_add_realusetime">实际用时</string>
+    <string name="text_add_selecttag">选择类型</string>
+    <string name="text_checkplan_back">返回</string>
+    <string name="text_checkplan_status">计划状态</string>
     
     <string name="w_text_weather">天气：</string>
     <string name="w_text_wind">风力：</string>

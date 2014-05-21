@@ -7,6 +7,9 @@ import com.hyyft.noteeverything.global.NoteGlobal;
 import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.myconst.PrefConst;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -75,7 +78,22 @@ public class AddPlanActivity extends Activity {
 				
 				dayPlan.setDate(dateTextView.getText().toString());
 				dayPlan.setIsFinish((short)0);
+				
+				Time time = new Time();
+				time.setToNow();
+				time.hour = 0;
+				time.minute = 0;
+				time.second = 0;
 				mtime = new DateTransfrom().timeToLong(dayPlan.getDate(), timeTextView.getText().toString());
+				if( mtime<time.toMillis(false) ){
+					dialog("不可以制定往日计划，日期要大于或等于今天！", "错误提示");
+					return;
+				}
+				if(dayPlan.getTitle().equals("")){
+					dialog("计划的标题不可为空！", "错误提示");
+					return;
+				}
+					
 				dayPlan.setPlanBeginTime(mtime);
 				dayPlan.setRealBeginTime(-1);
 				dayPlan.setRealTime(0);
@@ -152,5 +170,19 @@ public class AddPlanActivity extends Activity {
 		}
 	}
 	
-	
+	protected void dialog(String Message, String Title) {
+		AlertDialog.Builder builder = new Builder(this);
+		builder.setMessage(Message);
+		builder.setTitle(Title);
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		builder.create().show();
+	}
+
 }
