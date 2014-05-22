@@ -36,12 +36,26 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	public static final int CALENDAR_REQUEST_CODE = 1;
 	public static final int ADDPLAN_REQUEST_CODE = 2;
 	private static final String Tag = "PlanFragment";
+	private String dateString;
 	//private View planItemView;
 	private TextView dateTextView;
 	private NoteGlobal noteGlobal;
 	private ListView listView;
 	private Button mbtn_add;
 	
+	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		Time time = new Time();
+		time.setToNow();
+		dateString = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+	}
+
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -61,13 +75,14 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 				new CreateTimeDialog( getActivity() , PlanFragment.this ).getDate();
 			}
 		});
+		dateTextView.setText(dateString);
 		
-		addPlan_View();  //加载今日的计划
+		addPlanByDate(dateTextView.getText().toString());  //加载今日的计划
 		
 		//设置日期（显示今天的日期）
-		Time time = new Time();
-		time.setToNow();
-		dateTextView.setText(""+time.year+"-"+(time.month+1)+"-"+time.monthDay);
+		
+		
+		
     	return mainView;
 	}
 	
@@ -83,11 +98,23 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		switch (requestCode) {
 		case ADDPLAN_REQUEST_CODE:
 			if( resultCode == 1 ){
-				addPlan_View();  //重新加载计划
+				addPlanByDate(dateTextView.getText().toString());  //重新加载计划
 			}
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void addPlanByDate(String date){
+		Time time = new Time();
+		time.setToNow();
+		String today = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+		if( today.equals(date) ){
+			addPlan_View();
+		}
+		else {
+			dateDialogCallBack(date);
 		}
 	}
 	
@@ -131,7 +158,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		List<DayPlan> arraylist = new ArrayList<DayPlan>();
 		arraylist = dbDao.getAll(PlanTableInfo.PLAN_TABLE_NAME,
 				date );
-		for( int i=0 ; i<arraylist.size() ;i++  ){	
+		for( int i=arraylist.size()-1 ; i>=0 ;i--  ){	
 			adapter.addList(arraylist.get(i));
 		}		
 		listView.setAdapter(adapter);
@@ -209,6 +236,17 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		
           Intent intent = new Intent(getActivity() , CheckMoreActivity.class);  
           intent.putExtra("index", position);
+          Time time = new Time();
+  		  time.setToNow();
+  		  String today = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+  		  if( today.equals(dateTextView.getText().toString()) ){
+  			  intent.putExtra("istoday", true);
+  		  }
+  		  else {
+  			intent.putExtra("istoday", false);
+  			intent.putExtra("date", dateTextView.getText().toString());
+		 }
+          
           startActivity(intent);
 	}
 
@@ -219,7 +257,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		// TODO Auto-generated method stub
 		noteGlobal.deletePlan(position, dateTextView.getText().toString());
 		MainActivity.mainService.updateAlarm();
-		addPlan_View();
+		addPlanByDate(dateTextView.getText().toString());
 	}
 
 

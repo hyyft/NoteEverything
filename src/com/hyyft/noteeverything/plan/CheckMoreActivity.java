@@ -1,8 +1,12 @@
 package com.hyyft.noteeverything.plan;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.dao.DayPlanDao;
+import com.hyyft.noteeverything.dao.PlanDbHelperContract;
 import com.hyyft.noteeverything.global.NoteGlobal;
 import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.myconst.PrefConst;
@@ -35,11 +39,11 @@ public class CheckMoreActivity extends Activity {
         findView();
         btn_back.setOnClickListener(listener);
         Intent intent = getIntent();
-        setView(intent);
+        setViewByDate(intent);
         
 	}
 	
-	private void setView(Intent intent) {
+	private void setViewByDate(Intent intent) {
 		// TODO Auto-generated method stub
 		int index = intent.getIntExtra("index", -1);
 		if(index == -1){
@@ -47,8 +51,17 @@ public class CheckMoreActivity extends Activity {
 			return;
 		}
 		DayPlan dayPlan = new DayPlan();
-		NoteGlobal noteGlobal = (NoteGlobal)getApplication();
-		dayPlan = noteGlobal.planList.get(index);
+		if( intent.getBooleanExtra("istoday", true) ){
+			NoteGlobal noteGlobal = (NoteGlobal)getApplication();
+			dayPlan = noteGlobal.planList.get(index);
+		}
+		else {
+			DayPlanDao dao = new DayPlanDao(this);
+		    List<DayPlan> list = dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, intent.getStringExtra("date"));
+		    Log.i("hyyft", "index:"+index+","+"size:"+list.size());
+		    dayPlan = list.get(list.size() - index - 1);
+		}
+		
 		
 		if(dayPlan.getIsFinish() == 0)statusTextView.setText("未开始");
 		else if(dayPlan.getIsFinish() == 1)statusTextView.setText("完成");
