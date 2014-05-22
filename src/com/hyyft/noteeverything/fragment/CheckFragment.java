@@ -9,9 +9,12 @@ import com.hyyft.noteeverything.myconst.PrefConst;
 import com.hyyft.noteeverything.plan.CreateTimeDialog;
 import com.hyyft.noteeverything.plan.CreateTimeDialog.CreateTimeDialogCallBack;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
@@ -49,6 +52,22 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 	private List<String> bigTagList;
 	private View subvView;
 	private ArrayAdapter<String> adapter;
+	private Drawable selectedBg ,notSelectedBg;
+	
+	
+	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		Resources resources = getResources();
+		selectedBg = resources.getDrawable(R.drawable.check_btn_selected);
+		notSelectedBg = resources.getDrawable(R.drawable.check_btn_notselected);
+	}
+
+
+
 	//private Layout
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,17 +106,19 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 		actullyDoTextView = (TextView)subvView.findViewById(R.id.check_tv_actuallytodo);
 		
 	}
+	@SuppressLint("NewApi")
 	private void initView(){
 		
 		Time time = new Time();
 		time.setToNow();
 		dateTextView.setText(""+time.year+"-"+(time.month+1)+"-"+time.monthDay);
-		planTextView.setBackgroundColor(Color.parseColor("#999999"));
-		doTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+		planTextView.setBackground(selectedBg);
+		doTextView.setBackground(notSelectedBg);
 		
 		btnLayout.addView(subvView);
-		planDoTextView.setBackgroundColor(Color.parseColor("#999999"));
-		actullyDoTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+		planDoTextView.setBackground(selectedBg);
+		actullyDoTextView.setBackground(notSelectedBg);
+		
 	
 		drawLayout.removeAllViews();
 		//Log.i(TAG, "Ö´ÐÐinitView");
@@ -152,6 +173,7 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 	 */
 	private OnClickListener textViewListener = new OnClickListener() {
 		
+		@SuppressLint("NewApi")
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
@@ -162,9 +184,16 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 			case R.id.check_tv_plan:
 				if( whichSelected == DOTEXTVIEW ){
 					whichSelected = PLANTEXTVIEW;
-					planTextView.setBackgroundColor(Color.parseColor("#999999"));
-					doTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					planTextView.setBackground(selectedBg);
+					doTextView.setBackground(notSelectedBg);
+					
+					Resources resources = getResources();
+					selectedBg = resources.getDrawable(R.drawable.check_btn_selected);
+					notSelectedBg = resources.getDrawable(R.drawable.check_btn_notselected);
+					
 					btnLayout.addView(subvView );
+					planDoTextView.setBackground(selectedBg);
+					actullyDoTextView.setBackground(notSelectedBg);
 					
 					drawLayout.removeAllViews();
 					drawLayout.addView(new DrawPie(getActivity(), bigTagList)
@@ -178,8 +207,8 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 			case R.id.check_tv_do:
 				if( whichSelected == PLANTEXTVIEW ){
 					whichSelected = DOTEXTVIEW;
-					planTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
-					doTextView.setBackgroundColor(Color.parseColor("#999999"));
+					planTextView.setBackground(notSelectedBg);
+					doTextView.setBackground(selectedBg);
 					btnLayout.removeView(subvView);
 					drawLayout.removeAllViews();
 					drawLayout.addView(new DrawPie(getActivity(), bigTagList)
@@ -194,8 +223,8 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 				if( whichSelected2 == ACTUALLDOTEXTVIEW ){
 					whichSelected2 = PLANDOTEXTVIEW;
 					
-					planDoTextView.setBackgroundColor(Color.parseColor("#999999"));
-					actullyDoTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+					planDoTextView.setBackground(selectedBg);
+					actullyDoTextView.setBackground(notSelectedBg);
 					
 					drawLayout.removeAllViews();
 					drawLayout.addView(new DrawPie(getActivity(), bigTagList)
@@ -209,8 +238,8 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 				if( whichSelected2 == PLANDOTEXTVIEW ){
 					whichSelected2 = ACTUALLDOTEXTVIEW;
 					
-					planDoTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
-					actullyDoTextView.setBackgroundColor(Color.parseColor("#999999"));
+					planDoTextView.setBackground(notSelectedBg);
+					actullyDoTextView.setBackground(selectedBg);
 					
 					drawLayout.removeAllViews();
 					drawLayout.addView(new DrawPie(getActivity(), bigTagList)
@@ -257,13 +286,15 @@ public class CheckFragment extends Fragment implements OnItemSelectedListener ,
 	}
 	
 
+	@SuppressLint("NewApi")
 	@Override
 	public void dateDialogCallBack(String date) {
 		// TODO Auto-generated method stub
 		dateTextView.setText(date);
 		whichSelected = PLANTEXTVIEW;
-		planTextView.setBackgroundColor(Color.parseColor("#999999"));
-		doTextView.setBackgroundColor(Color.parseColor("#CCCCCC"));
+		planTextView.setBackground(selectedBg);
+		doTextView.setBackground(notSelectedBg);
+		
 		btnLayout.addView(subvView );
 		
 		drawLayout.removeAllViews();

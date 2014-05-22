@@ -18,15 +18,16 @@
         	android:layout_height="wrap_content"
         	android:gravity="center"
         	android:textSize="20sp"
+        	android:textColor="#000000"
         	android:text="@string/do_tv_begintime_desc"
             />
         <TextView 
             android:id="@+id/do_tv_begin_time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
         	android:layout_height="wrap_content"
         	android:layout_marginLeft="10dp"
         	android:gravity="center"
-        	android:background="@drawable/textview_bg"
+        	android:background="@drawable/plan_tv_bg"
         	android:textSize="20sp"
             /> 
     </LinearLayout>
@@ -76,7 +77,8 @@
             android:id="@+id/do_tv_content_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
+            android:layout_gravity="center"
+            android:textColor="#000000"
             android:text="@string/do_tv_content_desc"
             android:textSize="20sp" />
 
@@ -85,23 +87,39 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
+            android:gravity="top|left"
+            android:layout_marginLeft="10dp"
             android:background="#FFFFFF"
             android:textSize="20sp" 
             android:hint=""/>
     </LinearLayout>
     
   
-    <!-- do tag -->
-    <TextView 
+    <!-- do tag --><LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="@string/do_tv_tag"
+            android:textSize="20sp" />
+
+        <TextView
             android:id="@+id/do_tv_tag"
-            android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	android:background="@drawable/textview_bg"
-        	android:layout_marginTop="20dp"
-        	android:layout_marginRight="20dp"
-        	android:layout_marginLeft="20dp"
-        	android:textSize="25sp"
-            />
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/plan_tv_bg"
+            android:textSize="20sp" />
+    </LinearLayout>
+
     <!-- 按钮布局 -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -119,7 +137,7 @@
             android:layout_weight="1"
             android:text="@string/do_btn_save"
             style="@android:attr/buttonStyle"
-            android:textSize="25sp"
+            android:textSize="20sp"
              />
 
         <Button
@@ -129,7 +147,7 @@
             android:layout_weight="1"
             android:text="@string/do_btn_giveup"
             style="@android:attr/buttonStyle"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
     </LinearLayout>
     
 

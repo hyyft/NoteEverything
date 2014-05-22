@@ -108,7 +108,7 @@ public class AddDoItem_Activity extends Activity{
 								minute,
 								0);
 						doItem.setBeginTime(calendar.getTimeInMillis());
-						beginTimeTextView.setText(""+hour+"-"+minute);
+						beginTimeTextView.setText(""+hour+":"+minute);
 					}
 					
 					@Override

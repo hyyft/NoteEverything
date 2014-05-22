@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
+        android:padding="3dp"
         android:text="@string/check_btn_plantodo"
         android:textColor="#000000"
         android:textSize="20sp" />
@@ -18,6 +19,7 @@
         android:id="@+id/check_tv_actuallytodo"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:padding="3dp"
         android:text="@string/check_btn_actualltodo"
         android:textColor="#000000"
         android:textSize="20sp" />

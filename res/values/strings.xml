@@ -51,6 +51,7 @@
     <string name="do_tv_begintime_desc">开始时间</string>
     <string name="do_tv_endtime_desc">结束时间</string>
     <string name="do_tv_content_desc">内容</string>
+    <string name="do_tv_tag">类型</string>
     <string name="do_btn_save">保存</string>
     <string name="do_btn_giveup">放弃</string>
     
