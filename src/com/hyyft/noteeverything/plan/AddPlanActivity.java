@@ -71,13 +71,16 @@ public class AddPlanActivity extends Activity {
 				
 				dayPlan.setTitle( titlText.getText().toString() );
 				dayPlan.setContent(contentText.getText().toString() );
-				dayPlan.setOrder(noteGlobal.maxPlanOrder+1);
+				
+				
 				
 				dayPlan.setBigTag(tagTextView.getText().toString().split("-")[0]);
 				dayPlan.setLitleTag(tagTextView.getText().toString().split("-")[1]);
 				
 				dayPlan.setDate(dateTextView.getText().toString());
 				dayPlan.setIsFinish((short)0);
+				
+				dayPlan.setOrder(noteGlobal.getMaxPlanOrder(dayPlan.getDate()));
 				
 				Time time = new Time();
 				time.setToNow();
@@ -98,10 +101,7 @@ public class AddPlanActivity extends Activity {
 				dayPlan.setRealBeginTime(-1);
 				dayPlan.setRealTime(0);
 				dayPlan.setPlanTime(Integer.valueOf(planTimetTextView.getText().toString()));
-				if( datesString.equals(dayPlan.getDate()) )
-					noteGlobal.AddAPlan(dayPlan);
-				DayPlanDao dbDao = new DayPlanDao(AddPlanActivity.this);
-				dbDao.add(dayPlan);
+				noteGlobal.AddAPlan(dayPlan);
 				 
 				setResult(1);
 			}

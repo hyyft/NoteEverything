@@ -1,7 +1,5 @@
 package com.hyyft.noteeverything.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.hyyft.noteeverything.MainActivity;
 import com.hyyft.noteeverything.R;
@@ -9,9 +7,7 @@ import com.hyyft.noteeverything.adapter.DayPlanAdapter;
 import com.hyyft.noteeverything.adapter.DayPlanAdapter.DayPlanAdapterCallBack;
 import com.hyyft.noteeverything.dao.DayPlanDao;
 import com.hyyft.noteeverything.dao.PlanDbHelperContract;
-import com.hyyft.noteeverything.dao.PlanDbHelperContract.PlanTableInfo;
 import com.hyyft.noteeverything.global.NoteGlobal;
-import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.plan.AddPlanActivity;
 import com.hyyft.noteeverything.plan.CheckMoreActivity;
 import com.hyyft.noteeverything.plan.CreateTimeDialog;
@@ -22,6 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +48,10 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		super.onCreate(savedInstanceState);
 		Time time = new Time();
 		time.setToNow();
+		noteGlobal = (NoteGlobal)getActivity().getApplication();
 		dateString = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+		noteGlobal.dateString = dateString;
+		
 	}
 
 
@@ -76,8 +76,9 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 			}
 		});
 		dateTextView.setText(dateString);
+		noteGlobal.getPlan(dateTextView.getText().toString());
 		
-		addPlanByDate(dateTextView.getText().toString());  //加载今日的计划
+		addPlan_View();      //加载计划
 		
 		//设置日期（显示今天的日期）
 		
@@ -98,7 +99,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		switch (requestCode) {
 		case ADDPLAN_REQUEST_CODE:
 			if( resultCode == 1 ){
-				addPlanByDate(dateTextView.getText().toString());  //重新加载计划
+				addPlan_View();  //重新加载计划
 			}
 			break;
 		default:
@@ -106,22 +107,14 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		}
 	}
 	
-	private void addPlanByDate(String date){
-		Time time = new Time();
-		time.setToNow();
-		String today = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
-		if( today.equals(date) ){
-			addPlan_View();
-		}
-		else {
-			dateDialogCallBack(date);
-		}
-	}
 	
+	
+	/**
+	 * 加载计划
+	 */
 	private void addPlan_View(){
-		  //加载今日计划
+		  
 				DayPlanAdapter adapter = new DayPlanAdapter(getActivity() , this);		
-				noteGlobal = (NoteGlobal)getActivity().getApplication();
 				for( int i=0 ; i<noteGlobal.planList.size() ;i++  ){
 					
 					adapter.addList(noteGlobal.planList.get(i));
@@ -147,23 +140,6 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	
 	
 	
-	/**
-	 * 加载指定时间的计划
-	 */
-	@Override
-	public void dateDialogCallBack(String date) {
-		// TODO Auto-generated method stub
-		DayPlanAdapter adapter = new DayPlanAdapter(getActivity() , this);		
-		DayPlanDao dbDao = new DayPlanDao(getActivity());
-		List<DayPlan> arraylist = new ArrayList<DayPlan>();
-		arraylist = dbDao.getAll(PlanTableInfo.PLAN_TABLE_NAME,
-				date );
-		for( int i=arraylist.size()-1 ; i>=0 ;i--  ){	
-			adapter.addList(arraylist.get(i));
-		}		
-		listView.setAdapter(adapter);
-		dateTextView.setText(date);
-	}
 
 	@Override
 	public void timeDialogCallBack(String time) {
@@ -185,11 +161,15 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		// TODO Auto-generated method stub
 		DayPlanDao dao = new DayPlanDao(getActivity());
 		ContentValues values = new ContentValues();
-		noteGlobal.planList.get(position).setRealBeginTime(System.currentTimeMillis());
-		noteGlobal.planList.get(position).setIsFinish((short)2);
-		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, noteGlobal.planList.get(position).getIsFinish());
-		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALBEGINTIME, noteGlobal.planList.get(position).getRealBeginTime());
-		dao.update(values,  noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
+		Time time = new Time();
+		time.setToNow();
+		
+		long reaBeginltime = System.currentTimeMillis();
+		short isFinish = 2;
+	    //从这里开始修改
+		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, isFinish);
+		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALBEGINTIME, reaBeginltime);
+		noteGlobal.updatePlan(position, dateTextView.getText().toString(), values);
 		MainActivity.mainService.updateAlarm();
 	}
 
@@ -198,34 +178,29 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	@Override
 	public void PressBtnEnd(int position ,Button startAndStopButton , Button deleteButton  ) {
 		// TODO Auto-generated method stub
-//		deleteButton.setEnabled(false);
-//		startAndStopButton.setEnabled(false);
-		
-//		listView.getChildAt(position).findViewById(R.id.btn_plan_start_stop).setEnabled(false);
 		listView.getChildAt(position-listView.getFirstVisiblePosition())
 				.findViewById(R.id.btn_plan_give_up).setEnabled(false);
+		listView.getChildAt(position-listView.getFirstVisiblePosition())
+		.findViewById(R.id.btn_plan_start_stop).setEnabled(false);
 		
-		DayPlanDao dao = new DayPlanDao(getActivity());
-		ContentValues values = new ContentValues();
 		long now = System.currentTimeMillis();
+		int realTime ;
 		if(noteGlobal.planList.get(position).getIsFinish() == 0){
-			noteGlobal.planList.get(position).setRealTime(0);
+			realTime = 0;		
 		}
 		else {
-			noteGlobal.planList.get(position).setRealTime( (int)(now - noteGlobal.planList.get(position).getRealBeginTime())/60000);
+			realTime =  (int) ((now - noteGlobal.planList.get(position).getRealBeginTime())/60000);
 		}
-		noteGlobal.planList.get(position).setIsFinish((short )1 );
+		short isFinish = 1 ;
+		ContentValues values = new ContentValues();
+		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALTIME, realTime);
+		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, isFinish);
+		noteGlobal.updatePlan(position, dateTextView.getText().toString(), values);
 		
 		
-		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_REALTIME, noteGlobal.planList.get(position).getRealTime());
-		values.put(PlanDbHelperContract.PlanTableInfo.COLUMN_NAME_ISFINISH, noteGlobal.planList.get(position).getIsFinish());
-		dao.update(values, noteGlobal.planList.get(position).getOrder(), dateTextView.getText().toString());
+		
 		MainActivity.mainService.updateAlarm();
-		//addPlan_View();
-		//		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
-//				.get(position).getIsFinish());
-//		Log.i("yuan" , "PressBtnEnd:"+position+"##"+dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, dateTextView.getText().toString())
-//				.get(position).getOrder());
+
 	}
 
 
@@ -236,16 +211,6 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		
           Intent intent = new Intent(getActivity() , CheckMoreActivity.class);  
           intent.putExtra("index", position);
-          Time time = new Time();
-  		  time.setToNow();
-  		  String today = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
-  		  if( today.equals(dateTextView.getText().toString()) ){
-  			  intent.putExtra("istoday", true);
-  		  }
-  		  else {
-  			intent.putExtra("istoday", false);
-  			intent.putExtra("date", dateTextView.getText().toString());
-		 }
           
           startActivity(intent);
 	}
@@ -257,7 +222,7 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 		// TODO Auto-generated method stub
 		noteGlobal.deletePlan(position, dateTextView.getText().toString());
 		MainActivity.mainService.updateAlarm();
-		addPlanByDate(dateTextView.getText().toString());
+		addPlan_View();
 	}
 
 
@@ -266,6 +231,18 @@ public class PlanFragment extends ListFragment implements CreateTimeDialogCallBa
 	public void timeDialogCallBack(int hour, int minute) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	@Override
+	public void dateDialogCallBack(String date) {
+		// TODO Auto-generated method stub
+		noteGlobal.dateString=date;
+		noteGlobal.getPlan(date);
+		dateTextView.setText(date);
+		dateString = date;
+		addPlan_View();
 	}
 
 

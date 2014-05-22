@@ -45,6 +45,20 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack , Crea
 	private int index = -1;
 	private static final int ID_MODIFY = 0;
 	private static final int ID_DELETE = 1;
+	private String dateStr;
+	
+	
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		noteGlobal = (NoteGlobal)getActivity().getApplication();
+		Time time = new Time();
+		time.setToNow();
+		dateStr = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -55,9 +69,7 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack , Crea
 		addButton = (Button )fragmentView.findViewById(R.id.do_btn_additem);
 		addButton.setOnClickListener(listener);
 		
-		Time time = new Time();
-		time.setToNow();
-		String dateStr = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+		
 		dateTextView.setText(dateStr);
 		dateTextView.setOnClickListener(new OnClickListener() {
 			
@@ -89,7 +101,6 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack , Crea
 	 */
 	private void setView(){
 		DoItemAdapter adapter = new DoItemAdapter(getActivity(), this);
-		noteGlobal = (NoteGlobal)getActivity().getApplication();
 		noteGlobal.getDoWhat(dateTextView.getText().toString());
 		
 		
@@ -178,7 +189,8 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack , Crea
 	@Override
 	public void dateDialogCallBack(String date) {
 		// TODO Auto-generated method stub
-		dateTextView.setText(date);
+		dateStr = date;
+		dateTextView.setText(dateStr);
 		setView();
 	}
 

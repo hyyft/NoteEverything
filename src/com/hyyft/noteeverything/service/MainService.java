@@ -142,32 +142,34 @@ public class MainService extends Service {
 		if( !noteGlobal.globalFirstRun )return;
 		noteGlobal.globalFirstRun = false;
 		
-		DayPlanDao dbDao = new DayPlanDao(this);
+		//DayPlanDao dbDao = new DayPlanDao(this);
 		Time time = new Time();
 		time.setToNow();
 		
-		List<DayPlan> arraylist = new ArrayList<DayPlan>();
-		arraylist = dbDao.getAll(PlanTableInfo.PLAN_TABLE_NAME,
-				time.year+"-"+(time.month+1)+"-"+time.monthDay );
-		noteGlobal.getDoWhat(time.year+"-"+(time.month+1)+"-"+time.monthDay);
+//		List<DayPlan> arraylist = new ArrayList<DayPlan>();
+//		arraylist = dbDao.getAll(PlanTableInfo.PLAN_TABLE_NAME,
+//				time.year+"-"+(time.month+1)+"-"+time.monthDay );
+		noteGlobal.dateString = ""+time.year+"-"+(time.month+1)+"-"+time.monthDay;
+		noteGlobal.getDoWhat(noteGlobal.dateString);
+		noteGlobal.getPlan(noteGlobal.dateString);
 		
-		
-		for( int i=0 ; i< arraylist.size() ; i++ ){	
-			if( noteGlobal.maxPlanOrder<arraylist.get(i).getOrder() )
-				noteGlobal.maxPlanOrder = arraylist.get(i).getOrder();
-			if(noteGlobal.planList.isEmpty()){
-				noteGlobal.planList.add(arraylist.get(i));
-			}
-			else{
-				int j;
-				for( j=0 ; 
-					j<noteGlobal.planList.size() && ( noteGlobal.planList.get(j).getPlanBeginTime() > arraylist.get(i).getPlanBeginTime() );
-					j++ );
-				noteGlobal.planList.add( j , arraylist.get(i));
-				
-			}
-			//Log.i("yuan", noteGlobal.planList.get(i).toString() );
-		}
+//		
+//		for( int i=0 ; i< arraylist.size() ; i++ ){	
+//			if( noteGlobal.maxPlanOrder<arraylist.get(i).getOrder() )
+//				noteGlobal.maxPlanOrder = arraylist.get(i).getOrder();
+//			if(noteGlobal.planList.isEmpty()){
+//				noteGlobal.planList.add(arraylist.get(i));
+//			}
+//			else{
+//				int j;
+//				for( j=0 ; 
+//					j<noteGlobal.planList.size() && ( noteGlobal.planList.get(j).getPlanBeginTime() > arraylist.get(i).getPlanBeginTime() );
+//					j++ );
+//				noteGlobal.planList.add( j , arraylist.get(i));
+//				
+//			}
+//			//Log.i("yuan", noteGlobal.planList.get(i).toString() );
+//		}
 		//Log.i("yuan", "Init OK");
 		
 		

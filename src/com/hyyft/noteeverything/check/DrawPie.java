@@ -235,12 +235,17 @@ public class DrawPie {
 			
 			if( (integer = map.get(list.get(i).getBigTag()) )== null ){
 					map.put( list.get(i).getBigTag(), (int)( list.get(i+1).getBeginTime() - list.get(i).getBeginTime())/60000 );
+
 			}
-			else 
-				map.put(list.get(i).getBigTag(), integer.intValue()+(int)( list.get(i+1).getBeginTime() - list.get(i).getBeginTime())/60000 );			
+			else {
+				map.put(list.get(i).getBigTag(), integer.intValue()+(int)( list.get(i+1).getBeginTime() - list.get(i).getBeginTime())/60000 );	
+				
+			}
+				
 		}
 		if(i!=0)
 			map.put(list.get(i).getBigTag(), getEnd(date, list.get(i).getBeginTime()));
+		
 		return map;
 	}
 	

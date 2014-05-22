@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hyyft.noteeverything.dao.PlanDbHelperContract.DoWhatTableInfo;
+import com.hyyft.noteeverything.dao.PlanDbHelperContract.PlanTableInfo;
 import com.hyyft.noteeverything.modal.DoWhat;
 
 import android.annotation.SuppressLint;
@@ -38,6 +39,25 @@ public class DoWhatDao {
 		db.close();
 	}
 	
+	@SuppressLint("NewApi")
+	public int getMaxDoItemOrder( String date){
+		db = mDbHelper.getWritableDatabase();
+		
+		int order;
+		Cursor cursor = db.query(true, DoWhatTableInfo.TABLE_NAME, new String[]{"MAX("+DoWhatTableInfo.COLUMN_NAME_ORDER+")"}, 
+				DoWhatTableInfo.COLUMN_NAME_DATE+"=?", 
+				new String[]{ date }, 
+				null, null, null , null, null);
+		if(cursor.moveToNext()){
+			order = cursor.getInt(0);
+		}
+		else{
+			order = 0;
+		}
+			
+		db.close();
+		return order;	
+	}
 	/**
 	 * 删除一条dowhat
 	 * @param order  指定删除的id ， 如果为0 ， 删除全部

@@ -105,7 +105,8 @@ public class AddDoItem_Activity extends Activity{
 								calendar.get(Calendar.MONTH), 
 								calendar.get(Calendar.DATE), 
 								hour, 
-								minute);
+								minute,
+								0);
 						doItem.setBeginTime(calendar.getTimeInMillis());
 						beginTimeTextView.setText(""+hour+"-"+minute);
 					}
@@ -169,6 +170,7 @@ public class AddDoItem_Activity extends Activity{
 				
 				noteGlobal = (NoteGlobal) AddDoItem_Activity.this.getApplication();
 				doItem.setContent(contentEditText.getText().toString());
+				doItem.setOrder(noteGlobal.getMaxDoItemOrder(doItem.getDate()));
 				noteGlobal.AddDoItem(doItem);
 				setResult(1);
 				AddDoItem_Activity.this.finish();

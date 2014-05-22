@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,9 +90,12 @@ public class DayPlanAdapter extends BaseAdapter {
 			startAndStopButton.setEnabled(false);
 			deleteButton.setEnabled(false);
 			endButton.setEnabled(false); 
+			
 			}
-		else  if( list.get(position).getIsFinish() == 2 )
+		else  if( list.get(position).getIsFinish() == 2 ){
 			startAndStopButton.setEnabled(false);
+			//Log.i("hyyft" , "here");
+		}
 		
 		final Calendar mCalendar=Calendar.getInstance();
 		mCalendar.setTimeInMillis(list.get(position).getPlanBeginTime());
@@ -127,7 +131,7 @@ public class DayPlanAdapter extends BaseAdapter {
 			if( view.getId() == R.id.btn_plan_start_stop ){
 					button.setEnabled(false);
 					callBack.PressBtnStart(position);
-				
+					list.get(position).setIsFinish((short)2);
 				
 			}
 			else if( view.getId() == R.id.btn_plan_finish ){
@@ -135,6 +139,7 @@ public class DayPlanAdapter extends BaseAdapter {
 				button.setEnabled(false);
 				//startAndStopButton.setEnabled(false);
 				//deleteButton.setEnabled(false);
+				list.get(position).setIsFinish((short)1);
 				
 				callBack.PressBtnEnd(position , startAndStopButton , deleteButton);			
 			}else if( view.getId() == R.id.btn_plan_give_up ) {

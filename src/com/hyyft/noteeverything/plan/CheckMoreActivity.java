@@ -51,18 +51,10 @@ public class CheckMoreActivity extends Activity {
 			return;
 		}
 		DayPlan dayPlan = new DayPlan();
-		if( intent.getBooleanExtra("istoday", true) ){
-			NoteGlobal noteGlobal = (NoteGlobal)getApplication();
-			dayPlan = noteGlobal.planList.get(index);
-		}
-		else {
-			DayPlanDao dao = new DayPlanDao(this);
-		    List<DayPlan> list = dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, intent.getStringExtra("date"));
-		    Log.i("hyyft", "index:"+index+","+"size:"+list.size());
-		    dayPlan = list.get(list.size() - index - 1);
-		}
-		
-		
+		NoteGlobal noteGlobal = (NoteGlobal)getApplication();
+		dayPlan = noteGlobal.planList.get(index);
+
+				
 		if(dayPlan.getIsFinish() == 0)statusTextView.setText("未开始");
 		else if(dayPlan.getIsFinish() == 1)statusTextView.setText("完成");
 		else if( dayPlan.getIsFinish() == 2 )statusTextView.setText("进行中");

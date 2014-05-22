@@ -103,38 +103,30 @@ public class DayPlanDao {
 		return list;	
 	}
 	
-	
-	
-	
 	@SuppressLint("NewApi")
-	public List<DayPlan> getOneByOrder(String tableName , String date ,int order){
+	public int getMaxPlanOrder(String date){
 		db = mDbHelper.getWritableDatabase();
-		List<DayPlan> list = new ArrayList<DayPlan>();
-		DayPlan dayPlan;
-		Cursor cursor = db.query(true, tableName, null, 
-				PlanTableInfo.COLUMN_NAME_DATE+"=? AND "+PlanTableInfo.COLUMN_NAME_ORDER+"=?", 
-				new String[]{ date , String.valueOf(order) }, 
-				null, null, PlanTableInfo.COLUMN_NAME_PLANBEGINTIME , null, null);
-		while(cursor.moveToNext()){
-			dayPlan = new DayPlan();
-			dayPlan.setId(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_ID)));
-			dayPlan.setLevel(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_LEVEL)));
-			dayPlan.setTitle(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_TITLE)));
-			dayPlan.setOrder(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_ORDER)));
-			dayPlan.setContent(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_CONTENT)));
-			dayPlan.setBigTag(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_BIGTAG)));
-			dayPlan.setLitleTag(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_LITTLETAG)));
-			dayPlan.setPlanBeginTime(cursor.getLong(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_PLANBEGINTIME)));
-			dayPlan.setRealBeginTime(cursor.getLong(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_REALBEGINTIME)));
-			dayPlan.setPlanTime(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_PLANTIME)));
-			dayPlan.setRealTime(cursor.getInt(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_REALTIME)));
-			dayPlan.setIsFinish(cursor.getShort(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_ISFINISH)));
-			dayPlan.setDate(cursor.getString(cursor.getColumnIndex(PlanTableInfo.COLUMN_NAME_DATE)));
-			list.add(dayPlan);
+		
+		int order;
+		Cursor cursor = db.query(true, PlanTableInfo.PLAN_TABLE_NAME, new String[]{"MAX("+PlanTableInfo.COLUMN_NAME_ORDER+")"}, 
+				PlanTableInfo.COLUMN_NAME_DATE+"=?", 
+				new String[]{ date }, 
+				null, null, null , null, null);
+		if(cursor.moveToNext()){
+			order = cursor.getInt(0);
 		}
+		else{
+			order = 0;
+		}
+			
 		db.close();
-		return list;	
+		return order;	
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * 更新某天的计划
