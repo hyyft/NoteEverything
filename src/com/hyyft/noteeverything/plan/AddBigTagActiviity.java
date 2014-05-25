@@ -3,11 +3,13 @@ package com.hyyft.noteeverything.plan;
 import com.hyyft.noteeverything.R;
 import com.hyyft.noteeverything.myconst.PrefConst;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,6 +46,9 @@ public class AddBigTagActiviity extends Activity {
 		
 		saveBtn.setOnClickListener(listener);
 		
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		
 	}
 	
 	private OnClickListener listener = new OnClickListener() {
@@ -74,6 +79,21 @@ public class AddBigTagActiviity extends Activity {
 		editor.putInt(PrefConst.BIGTAG_COUNT, count+1);
 		editor.commit();
 		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	

@@ -2,6 +2,20 @@
 <resources>
 
     <string name="app_name">NoteEverything</string>
+    <string name="setting_activity_name">设置</string>
+    <string name="CheckMoreActivity_name">计划详细信息</string>
+    <string name="ModifyDoItem_Activity_name">修改执行项</string>
+    <string name="TagActivity_name">类型选择</string>
+    <string name="AddDoItem_Activity_name">添加执行项</string>
+    <string name="DialogActivity_name">计划提醒</string>
+    <string name="AddLittleTagActiviity_name">添加小类型</string>
+    <string name="AddBigTagActiviity_name">添加大类</string>
+    <string name="planTagActivity_name">选择类型</string>
+    <string name="AddPlanActivity_name">添加计划</string>
+    <string name="BackUpActivity_name">备份</string>
+    <string name="RestoreActivity_name">还原</string>
+    
+    
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="text_home">首页</string>
@@ -59,6 +73,16 @@
     <string name="check_btn_do">执行</string>
     <string name="check_btn_plantodo">计划情况</string>
     <string name="check_btn_actualltodo">实际情况</string>
-       
+    
+    <string name="setting_tv_usercenter">用户中心</string>
+    <string name="setting_tv_localpasswd">本地口令</string>
+    <string name="setting_tv_tagmanager">类型管理</string>
+    <string name="setting_tv_music">提醒音乐</string>
+    <string name="setting_tv_clear">清除数据</string>
+    
+    <string name="backup_btn_localbackup">本地备份</string>
+    <string name="backup_btn_yunbackup">云备份</string>
+    <string name="restore_btn_localrestore">本地还原</string>
+    <string name="restore_btn_yunrestore">云还原</string>
 
 </resources>

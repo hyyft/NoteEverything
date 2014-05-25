@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:id="@+id/setting_user_center_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" 
+        android:paddingLeft="10dp" 
+        android:gravity="left"
+        android:text="@string/setting_tv_usercenter"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:drawableRight="@drawable/setting_more_arrow"
+        />
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="1dp" 
+        android:background="#CCCCCC"
+        />
+    <TextView 
+        android:id="@+id/setting_localpw_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" 
+        android:paddingLeft="10dp" 
+        android:gravity="left"
+        android:text="@string/setting_tv_localpasswd"
+        android:textSize="18sp"
+        android:textColor="#000000"
+         android:drawableRight="@drawable/setting_more_arrow"
+        />
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="1dp" 
+        android:background="#CCCCCC"
+        />
+    <TextView 
+        android:id="@+id/setting_music_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" 
+        android:paddingLeft="10dp" 
+        android:gravity="left"
+        android:text="@string/setting_tv_music"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:drawableRight="@drawable/setting_music_on"
+        
+        />
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="1dp" 
+        android:background="#CCCCCC"
+        />
+    <TextView 
+        android:id="@+id/setting_tagmanager_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" 
+        android:paddingLeft="10dp" 
+        android:gravity="left"
+        android:text="@string/setting_tv_tagmanager"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:drawableRight="@drawable/setting_more_arrow"
+        />
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="2dp" 
+        android:layout_marginTop="30dp"
+        android:background="#CCCCCC"
+        />
+    <TextView 
+        android:id="@+id/setting_clear_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" 
+        android:paddingLeft="10dp" 
+        android:gravity="left"
+        android:text="@string/setting_tv_clear"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        />
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="1dp" 
+        android:background="#CCCCCC"
+        />
+   
+    
+    
+    
+
+</LinearLayout>

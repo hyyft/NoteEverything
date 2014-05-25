@@ -34,40 +34,52 @@
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.plan.AddPlanActivity"
-            android:label="@string/app_name" >
+            android:label="@string/AddPlanActivity_name" >
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.plan.TagActivity"
-            android:label="@string/app_name" >
+            android:label="@string/planTagActivity_name" >
         </activity>
          <activity
             android:name="com.hyyft.noteeverything.plan.AddBigTagActiviity"
-            android:label="@string/app_name" >
+            android:label="@string/AddBigTagActiviity_name" >
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.plan.AddLittleTagActiviity"
-            android:label="@string/app_name" >
+            android:label="@string/AddLittleTagActiviity_name" >
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.plan.DialogActivity"
             android:theme="@android:style/Theme.Dialog"
-            android:label="@string/app_name" >
+            android:label="@string/DialogActivity_name" >
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.dowhat.AddDoItem_Activity"
-            android:label="@string/app_name" >
+            android:label="@string/AddDoItem_Activity_name" >
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.dowhat.TagActivity"
-            android:label="@string/app_name" >
+            android:label="@string/TagActivity_name" >
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.dowhat.ModifyDoItem_Activity"
-            android:label="@string/app_name" >
+            android:label="@string/ModifyDoItem_Activity_name" >
         </activity>
         <activity
             android:name="com.hyyft.noteeverything.plan.CheckMoreActivity"
-            android:label="@string/app_name" >
+            android:label="@string/CheckMoreActivity_name" >
+        </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.setting.SettingActivity"
+            android:label="@string/setting_activity_name" >
+        </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.backupandrestore.BackUpActivity"
+            android:label="@string/BackUpActivity_name" >
+        </activity>
+        <activity
+            android:name="com.hyyft.noteeverything.backupandrestore.RestoreActivity"
+            android:label="@string/RestoreActivity_name" >
         </activity>
         <service
             android:name="com.hyyft.noteeverything.service.InitService"

@@ -1,11 +1,14 @@
 package com.hyyft.noteeverything;
 
+import com.hyyft.noteeverything.backupandrestore.BackUpActivity;
+import com.hyyft.noteeverything.backupandrestore.RestoreActivity;
 import com.hyyft.noteeverything.fragment.DoFragment;
 import com.hyyft.noteeverything.fragment.HomeFragment;
 import com.hyyft.noteeverything.fragment.PlanFragment;
 import com.hyyft.noteeverything.fragment.CheckFragment;
 import com.hyyft.noteeverything.service.MainService;
 import com.hyyft.noteeverything.service.MainService.MainServiceBinder;
+import com.hyyft.noteeverything.setting.SettingActivity;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -244,13 +247,16 @@ public class MainActivity extends FragmentActivity {
 		String title = item.getTitle().toString();
 		Log.i("MainActivity", title);
 		if(title.equals(this.getString(R.string.text_backup))){
-			
+			Intent intent = new Intent(this , BackUpActivity.class);
+			startActivity(intent);
 		}
 		else if (title.equals(this.getString(R.string.text_restore))) {
-			
+			Intent intent = new Intent(this , RestoreActivity.class);
+			startActivity(intent);
 		}
 		else if (title.equals(this.getString(R.string.text_set))) {
-			
+			Intent intent = new Intent(this , SettingActivity.class);
+			startActivity(intent);
 		}
 		else if (title.equals(this.getString(R.string.text_help))) {
 			

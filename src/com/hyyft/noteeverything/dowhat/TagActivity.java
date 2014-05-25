@@ -5,11 +5,13 @@ import com.hyyft.noteeverything.dowhat.AddPlanBigTag.PlanBigTagCallBack;
 import com.hyyft.noteeverything.dowhat.AddPlanLittleTag.AddPlanLittleTagCallBack;
 
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MenuItem;
 
 public class TagActivity extends FragmentActivity{
 
@@ -55,7 +57,26 @@ public class TagActivity extends FragmentActivity{
 		
 		fTransaction.commit();
 		
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
 	
 }

@@ -8,11 +8,13 @@ import com.hyyft.noteeverything.modal.DoWhat;
 import com.hyyft.noteeverything.plan.CreateTimeDialog;
 import com.hyyft.noteeverything.plan.CreateTimeDialog.CreateTimeDialogCallBack;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -47,6 +49,9 @@ public class AddDoItem_Activity extends Activity{
 		
 		saveButton.setOnClickListener(btnListener);
 		giveUpButton.setOnClickListener(btnListener);
+		
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		
 	}
 	
@@ -186,7 +191,20 @@ public class AddDoItem_Activity extends Activity{
 		}
 	};
 
-	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 	
 
-	}
+}

@@ -6,6 +6,8 @@ import com.hyyft.noteeverything.dao.DayPlanDao;
 import com.hyyft.noteeverything.global.NoteGlobal;
 import com.hyyft.noteeverything.modal.DayPlan;
 import com.hyyft.noteeverything.myconst.PrefConst;
+
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -15,6 +17,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -55,6 +58,10 @@ public class AddPlanActivity extends Activity {
 				onTagTextView();
 			}
 		});
+        
+        
+        ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
         
 	}
 	
@@ -186,4 +193,18 @@ public class AddPlanActivity extends Activity {
 		builder.create().show();
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }
