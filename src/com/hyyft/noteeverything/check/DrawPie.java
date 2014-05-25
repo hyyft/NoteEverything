@@ -55,6 +55,7 @@ public class DrawPie {
 	
 	
 	public GraphicalView drawPlan(String date , String bigTag , int tag){
+		
 		dataset = buildCategoryDataset(date, bigTag ,tag);
 		renderer = buildCategoryRenderer(date , bigTag , count);
 		graphicalView=ChartFactory.getPieChartView(context, dataset, renderer);
@@ -87,33 +88,47 @@ public class DrawPie {
 		
 		Iterator<Map.Entry<String,Integer>> iterator = map.entrySet().iterator();
 		if(  !iterator.hasNext() ) {
-			series.add("无数据",1);
+			series.add("无数据", 1);
+			count = 1;
 			return series;
 		}
+		
+		float sum = 0;
 		while(iterator.hasNext()){
 			++count;
 			
 			 Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iterator.next();
-			 series.add(entry.getKey() , entry.getValue().intValue());
+			//series.add(entry.getKey() , entry.getValue().intValue());
+			 sum+=entry.getValue().floatValue();
 		}
 		--count;
+		
+		Iterator<Map.Entry<String,Integer>> iterator1 = map.entrySet().iterator();
+		int percent=0;
+		while(iterator1.hasNext()){
+			
+			 Map.Entry<String, Integer> entry = (Map.Entry<String, Integer>) iterator1.next();
+			 if(sum == 0)percent = 0;
+			 else percent = (int)(entry.getValue().floatValue() / sum * 100);
+			 series.add(entry.getKey()+"("+percent+"%)" , percent);	
+		}
 		return series;
 	}
 	
 	private DefaultRenderer buildCategoryRenderer(String date , String bigTag , int n) {
         DefaultRenderer renderer = new DefaultRenderer();
        
-        renderer.setLegendTextSize(20);//设置左下角表注的文字大小
+        renderer.setLegendTextSize(25);//设置左下角表注的文字大小
         renderer.setLabelsColor(Color.BLACK);
-      //renderer.setZoomButtonsVisible(true);//设置显示放大缩小按钮  
-        renderer.setZoomEnabled(false);//设置不允许放大缩小.  
-          renderer.setChartTitleTextSize(30);//设置图表标题的文字大小
-          renderer.setChartTitle(bigTag);//设置图表的标题  默认是居中顶部显示
-          renderer.setLabelsTextSize(20);//饼图上标记文字的字体大小
-          renderer.setPanEnabled(false);//设置是否可以平移
-          renderer.setDisplayValues(true);//是否显示值
-          renderer.setClickEnabled(true);//设置是否可以被点击
-        renderer.setMargins(new int[] { 20, 30, 15,0 });
+        renderer.setZoomButtonsVisible(true);//设置显示放大缩小按钮  
+        renderer.setZoomEnabled(true);//设置不允许放大缩小.  
+        renderer.setChartTitleTextSize(30);//设置图表标题的文字大小
+        renderer.setChartTitle(bigTag);//设置图表的标题  默认是居中顶部显示
+        renderer.setLabelsTextSize(20);//饼图上标记文字的字体大小
+        renderer.setPanEnabled(true);//设置是否可以平移
+        renderer.setDisplayValues(false);//是否显示值
+        renderer.setClickEnabled(true);//设置是否可以被点击
+        renderer.setMargins(new int[] { 20, 20, 15,15 });
         //margins - an array containing the margin size values, in this order: top, left, bottom, right
         for (int j=1 ; j<=n ; j++) {
           SimpleSeriesRenderer r = new SimpleSeriesRenderer();
@@ -182,7 +197,8 @@ public class DrawPie {
 		Integer integer;
 		List<DayPlan> list = dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, date);
 		for(int i=0 ; i < list.size() ; i++){
-			if( (!list.get(i).getBigTag().equals(bigTag)) && list.get(i).getIsFinish()!=1 )continue;
+			if( (!list.get(i).getBigTag().equals(bigTag))  )continue;
+			
 			if( (integer = map.get(list.get(i).getLitleTag()) ) == null)
 				map.put( list.get(i).getLitleTag(), list.get(i).getPlanTime() );
 			else 
@@ -214,8 +230,8 @@ public class DrawPie {
 		Integer integer;
 		List<DayPlan> list = dao.getAll(PlanDbHelperContract.PlanTableInfo.PLAN_TABLE_NAME, date);
 		for(int i=0 ; i < list.size() ; i++){
-			if( ! list.get(i).getBigTag().equals(bigTag))continue;
-			//Log.i("yuan" , ""+list.get(i).getRealTime());
+			if( ! list.get(i).getBigTag().equals(bigTag) || list.get(i).getIsFinish()!=1)continue;
+			Log.i("yuan" , ""+list.get(i).getRealTime());
 			if( (integer = map.get(list.get(i).getLitleTag()) ) == null )
 				map.put( list.get(i).getLitleTag(), list.get(i).getRealTime() );
 			else 
@@ -243,8 +259,14 @@ public class DrawPie {
 			}
 				
 		}
-		if(i!=0)
-			map.put(list.get(i).getBigTag(), getEnd(date, list.get(i).getBeginTime()));
+		if(i!=0 || list.size()!=0){
+			if( (integer = map.get(list.get(i).getBigTag()) ) == null )
+				map.put(list.get(i).getBigTag(), getEnd(date, list.get(i).getBeginTime()));
+			else 
+				map.put(list.get(i).getBigTag(), integer.intValue()+getEnd(date, list.get(i).getBeginTime()));
+		   //Log.i("hyyft" , ""+integer.intValue());
+		}
+			
 		
 		return map;
 	}
@@ -276,13 +298,23 @@ public class DrawPie {
 		DoWhatDao dao = new DoWhatDao(context);
 		Integer integer;
 		List<DoWhat> list = dao.getAll(PlanDbHelperContract.DoWhatTableInfo.TABLE_NAME, date);
-		for(int i=0 ; i < list.size()-1 ; i++){
+		int i;
+		for(i=0 ; i < list.size()-1 ; i++){
 			if( ! list.get(i).getBigTag().equals(bigTag))continue;
 			if( (integer = map.get(list.get(i).getLitleTag()) ) == null )
 				map.put( list.get(i).getLitleTag(), (int)( list.get(i+1).getBeginTime() - list.get(i).getBeginTime())/60000 );
 			else 
 				map.put(list.get(i).getLitleTag(), integer.intValue()+(int)( list.get(i+1).getBeginTime() - list.get(i).getBeginTime())/60000);			
 		}
+		if( (i!=0 || list.size()!=0) && list.get(i).getBigTag().equals(bigTag)){
+			if( (integer = map.get(list.get(i).getLitleTag()) ) == null )
+				map.put(list.get(i).getLitleTag(), getEnd(date, list.get(i).getBeginTime()));
+			else 
+				map.put(list.get(i).getLitleTag(), integer.intValue()+getEnd(date, list.get(i).getBeginTime()));	
+				
+		
+		}
+			
 		return map;
 	}
 }

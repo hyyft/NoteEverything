@@ -7,19 +7,23 @@
 
     <TextView
         android:id="@+id/check_tv_plantodo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:layout_marginLeft="20dp"
         android:padding="3dp"
         android:text="@string/check_btn_plantodo"
         android:textColor="#000000"
+        android:singleLine="true"
         android:textSize="20sp" />
 
     <TextView
         android:id="@+id/check_tv_actuallytodo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:padding="3dp"
+        android:singleLine="true"
         android:text="@string/check_btn_actualltodo"
         android:textColor="#000000"
         android:textSize="20sp" />

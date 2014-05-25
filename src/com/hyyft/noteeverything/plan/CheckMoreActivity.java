@@ -54,10 +54,16 @@ public class CheckMoreActivity extends Activity {
 		NoteGlobal noteGlobal = (NoteGlobal)getApplication();
 		dayPlan = noteGlobal.planList.get(index);
 
-				
-		if(dayPlan.getIsFinish() == 0)statusTextView.setText("未开始");
-		else if(dayPlan.getIsFinish() == 1)statusTextView.setText("完成");
-		else if( dayPlan.getIsFinish() == 2 )statusTextView.setText("进行中");
+			
+		if(dayPlan.getIsFinish() == 0){
+			statusTextView.setText("未开始");
+		}
+		else if(dayPlan.getIsFinish() == 1){
+			statusTextView.setText("完成");
+		}
+		else if( dayPlan.getIsFinish() == 2 ){
+			statusTextView.setText("进行中");
+		}
 		
 		Time time = new Time();
 		time.set(dayPlan.getPlanBeginTime());

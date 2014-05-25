@@ -100,6 +100,7 @@ public class HomeFragment extends Fragment {
 	private void getWeather(){
 		
 		int indentify; ViewGroup parentView;
+		if( getActivity() == null )return;
 		Resources resources = getActivity().getResources();	
 
 		addrTextView.setText(weathers[0].getAddr());

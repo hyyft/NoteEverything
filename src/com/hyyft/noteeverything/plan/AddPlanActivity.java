@@ -100,6 +100,7 @@ public class AddPlanActivity extends Activity {
 				dayPlan.setPlanBeginTime(mtime);
 				dayPlan.setRealBeginTime(-1);
 				dayPlan.setRealTime(0);
+				dayPlan.setIsFinish((short)0);
 				dayPlan.setPlanTime(Integer.valueOf(planTimetTextView.getText().toString()));
 				noteGlobal.AddAPlan(dayPlan);
 				 

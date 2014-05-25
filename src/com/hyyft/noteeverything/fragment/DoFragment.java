@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,7 +26,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * dowhat µÄfragment Àà
@@ -117,7 +115,7 @@ public class DoFragment extends Fragment implements DoItemAdapterCallBack , Crea
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), ""+item.getItemId(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(getActivity(), ""+item.getItemId(), Toast.LENGTH_LONG).show();
 		switch (item.getItemId()) {
 		case ID_MODIFY:
 			startActivityForResult(new Intent( getActivity() , ModifyDoItem_Activity.class)
